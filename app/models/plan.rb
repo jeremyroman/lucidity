@@ -1,25 +1,7 @@
 # Represents a planned course schedule
 class Plan < ActiveRecord::Base
-  has_many :terms
+  has_many :terms, :dependent => :destroy
   has_many :courses, :through => :terms
-    
-  # Returns true is the plan satisfies all of the
-  # endpoint requirements, and false otherwise.
-  def satisfies_endpoint?(endpoint)
-    conflicts_with_endpoint(endpoint).empty?
-  end
-  
-  # Returns a list of conflicts with a given endpoint.
-  # Each element will implement #conflict_description.
-  def conflicts_with_endpoint(endpoint)
-    retval = []
-    
-    endpoint.endpoint_requirements.each do |endpoint_requirement|
-      retval << endpoint_requirement unless endpoint_requirement.satisfied?(self)
-    end
-    
-    retval
-  end
   
   # Returns true if the plan has no internal conflicts
   # (that is, all courses have their prerequisites satisfied),
@@ -46,17 +28,10 @@ class Plan < ActiveRecord::Base
     retval
   end
   
-  # Prints internal conflicts to stdout.
-  def print_internal_conflicts
-    internal_conflicts.each { |con| puts con.conflict_description }
-    nil
-  end
+  # the following stuff is mostly for usage in script/console
+  # and does not need to be covered by tests
   
-  # Prints endpoint conflicts to stdout.
-  def print_conflicts_with_endpoint(endpoint)
-    conflicts_with_endpoint(endpoint).each { |con| puts con.conflict_description }
-    nil
-  end
+  #:nocov:
   
   # Prints a summary of the plan.
   # Intended for use in script/console and other
@@ -70,4 +45,6 @@ class Plan < ActiveRecord::Base
 
     nil
   end
+  
+  #:nocov:
 end
