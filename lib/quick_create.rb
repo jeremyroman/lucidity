@@ -1,10 +1,6 @@
-# Tool intended for use in script/console for manually
-# adding courses without issuing ActiveRecord or SQL
-# commands.
 module QuickCreate
   VERSION = 1.1
   
-  # Runs the QuickCreate wizard.
   def self.run
     puts "=== Course QuickCreate ==="
     attribs = {}
