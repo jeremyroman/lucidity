@@ -9,7 +9,7 @@ class CourseRequirement < ActiveRecord::Base
   def satisfied?(term, plan)
     course_group.courses.select do |course|
       term2 = plan.terms.detect { |t| t.courses.include? course }
-      term2 && (term2.name < term.name)
+      term2 && (term2.id < term.id)
     end.size >= number
   end
   
