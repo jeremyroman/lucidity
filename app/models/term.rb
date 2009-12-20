@@ -3,9 +3,10 @@ class Term < ActiveRecord::Base
   has_many :course_memberships, :dependent => :destroy
   has_many :courses, :through => :course_memberships
   
+  #:nocov:
+  
   # Adds a course to the term, looking it up in the database
   # if necessary. Useful shorthand for script/console.
-  #:nocov:
   def <<(obj)
     if obj.is_a? String
       self << Course.find_by_code(obj)
@@ -15,5 +16,6 @@ class Term < ActiveRecord::Base
       self.courses << obj
     end
   end
+  
   #:nocov:
 end
