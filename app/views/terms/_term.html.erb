@@ -1,0 +1,8 @@
+<div class="term">
+  <div class="term-cap">
+    <p><strong><%=h term.name %></strong></p>
+    <p><%= %w(Fall Winter Spring).detect { |s| s[0] == term.season[0] } %></p>
+  </div>
+  
+  <%= render :partial => term.courses %>
+</div>

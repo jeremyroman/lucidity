@@ -108,6 +108,7 @@ strong {
 	text-align:center;
 	overflow:hidden;
 	position:relative;
+	cursor:default;
 }
 
 .term-course p {

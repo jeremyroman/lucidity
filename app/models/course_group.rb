@@ -1,3 +1,6 @@
+# Represents a group of courses, used mostly
+# for prerequisites which specify "2 of..." or
+# something similar.
 class CourseGroup < ActiveRecord::Base
   has_many :course_group_memberships
   has_many :courses, :through => :course_group_memberships
