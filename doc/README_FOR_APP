@@ -1,2 +1,31 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+Waterloonatic is a tool for organizing one's course plan
+as a student at the University of Waterloo. It supplements
+the course calendar by providing an automated way to explore
+possible schedules while keeping an eye out for prerequisites
+and such.
+
+Run <tt>rake doc:app</tt> to generate the full documentation
+if you have not already done so.
+
+For development installation, you probably want to run:
+<tt>rake gems:install db:create db:migrate tmp:create</tt>.
+The installation of gems may require root privileges, depending on
+your setup. If this is the case, you may wish to run the
+<tt>gems:install</tt> task separately with the necessarily privileges.
+This application currently does not use any extra gems, except
+for testing, so you may not need to run this task at all.
+Installing the <tt>mongrel</tt> gem will make script/server use
+a somewhat better server than WEBrick, though script/server still
+isn't suitable for actual deployment.
+
+If you wish to run the tests, make sure that you have the
+necessary gems. To do this, run <tt>rake gems:install RAILS_ENV=test</tt>.
+To run the tests, use <tt>rake spec</tt>. This application uses
+RSpec instead of the Test::Unit framework which Rails defaults to.
+Again, to install gems you may require privileged access, depending
+on your system setup.
+
+If you cannot install gems, it may be possible to install these
+as Rails plugins or by freezing them into the vendor directory.
+
+Written by Jeremy Roman.

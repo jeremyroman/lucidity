@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title><%= AppConfig.title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+    
+    <%= javascript_include_tag "/jquery/js/jquery-1.3.2.min.js", "/jquery/js/jquery-ui-1.7.2.custom.min.js", :cache => "jquery" %>
+    <%= stylesheet_link_tag "/jquery/css/#{AppConfig.jquery_theme}/jquery-ui-1.7.2.custom.css" %>
+    
+    <%= stylesheet_link_tag :all, :cache => "all" %>
+    <%= javascript_include_tag "ui" %>
+  </head>
+
+  <body>
+    <div id="header">
+      <h1><%= AppConfig.title %></h1>
+    </div>
+    
+    <%= render :partial => 'portlet_bar' %>
+    
+    <div class="tabs">
+      <ul>
+        <% for plan in @plans -%>
+        <li><a href="#plan-<%= plan.id %>"><%=h plan.name %>
+        <% end -%>
+        <li class="tab-newplan"><a href="#newplan"><span class="ui-icon ui-icon-plusthick">New</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+      </ul>
+      
+      <%= render :partial => @plans %>
+      
+      <div id="newplan">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </div>
+  </body>
+</html>

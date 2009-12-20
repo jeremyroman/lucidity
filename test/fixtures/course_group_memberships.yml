@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  course_group_id: 1
-  course_id: 1
-
-two:
-  course_group_id: 1
-  course_id: 1
