@@ -11,5 +11,14 @@ describe MainController do
     it "should be the recipient of the / URL" do
       params_from(:get, "/").should == {:controller => "main", :action => "index"}
     end
+    
+    it "should retrieve a list of plans" do
+      new_plan = Plan.create!(:name => "Plan B")
+      
+      get 'index'
+      assigns[:plans].should == Plan.all
+      
+      new_plan.destroy
+    end
   end
 end
