@@ -15,6 +15,28 @@ describe Plan do
     plan.reload
     plan.should be_internally_consistent
     
-    [plan, term, course].each(&:destroy)
+    [plan, course].each(&:destroy)
+  end
+  
+  it "should ensure that all course requirements are met" do
+    GlobalStub.hook(CourseRequirement, :satisfied?)
+    plan = Plan.create!
+    term = plan.terms.create!(:name => "1B", :season => "W")
+    course = Course.create!(:code => "TEST 137", :name => "Winter Testing", :offered => "W")
+    course.course_requirements.create!
+    course.course_requirements.create!
+    term.courses << course
+    term.save!
+    
+    # shouldn't work if none are satisfied
+    GlobalStub[CourseRequirement, :satisfied?] = false
+    plan.should_not be_internally_consistent
+    
+    # should work if all are satisfied
+    GlobalStub[CourseRequirement, :satisfied?] = true
+    plan.should be_internally_consistent
+    
+    GlobalStub.unhook(CourseRequirement, :satisfied?)
+    [plan, course].each(&:destroy)
   end
 end

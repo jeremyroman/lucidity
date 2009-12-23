@@ -12,12 +12,6 @@ class Endpoint < ActiveRecord::Base
   # Returns a list of conflicts with a given plan.
   # Each element will implement #conflict_description.
   def conflicts_with_plan(plan)
-    retval = []
-    
-    endpoint_requirements.each do |endpoint_requirement|
-      retval << endpoint_requirement unless endpoint_requirement.satisfied?(plan)
-    end
-    
-    retval
+    endpoint_requirements.reject { |er| er.satisfied?(plan) }
   end
 end
