@@ -12,4 +12,11 @@ class Course < ActiveRecord::Base
   def conflict_description
     "#{code} is only offered in terms #{offered}"
   end
+  
+  # Returns true if the course is offered in the season
+  # given (F for Fall, W for Winter, S for Spring), and
+  # false otherwise.
+  def offered?(season)
+    offered.include?(season)
+  end
 end
