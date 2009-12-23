@@ -17,11 +17,8 @@ class Plan < ActiveRecord::Base
     
     terms.each do |term|
       term.courses.each do |course|
-        retval << course unless course.offered.include?(term.season)
-        
-        course.course_requirements.each do |course_requirement|
-          retval << course_requirement unless course_requirement.satisfied?(term, self)
-        end
+        retval << course unless course.offered?(term.season)
+        retval += course.course_requirements.reject { |cr| cr.satisfied?(term, self) }
       end
     end
     
