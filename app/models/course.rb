@@ -16,7 +16,7 @@ class Course < ActiveRecord::Base
   # Returns true if the course is offered in the season
   # given (F for Fall, W for Winter, S for Spring), and
   # false otherwise.
-  def offered?(season)
-    offered.include?(season)
+  def offered?(season_or_term)
+    offered.include?(season_or_term.is_a?(Term) ? season_or_term.season : season_or_term)
   end
 end

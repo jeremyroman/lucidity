@@ -10,10 +10,12 @@ describe Plan do
     term.update_attribute(:season, "F")
     plan.reload
     plan.should_not be_internally_consistent
+    plan.should have_at_least(1).internal_conflicts
     
     term.update_attribute(:season, "W")
     plan.reload
     plan.should be_internally_consistent
+    plan.should have(:no).internal_conflicts
     
     [plan, course].each(&:destroy)
   end
@@ -31,10 +33,12 @@ describe Plan do
     # shouldn't work if none are satisfied
     GlobalStub[CourseRequirement, :satisfied?] = false
     plan.should_not be_internally_consistent
+    plan.should have_at_least(1).internal_conflicts
     
     # should work if all are satisfied
     GlobalStub[CourseRequirement, :satisfied?] = true
     plan.should be_internally_consistent
+    plan.should have(:no).internal_conflicts
     
     GlobalStub.unhook(CourseRequirement, :satisfied?)
     [plan, course].each(&:destroy)

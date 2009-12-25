@@ -6,7 +6,7 @@ class Endpoint < ActiveRecord::Base
   # Returns true if the plan satisfies all of the
   # endpoint requirements, and false otherwise.
   def satisfied?(plan)
-    conflicts_with_plan(plan).empty?
+    endpoint_requirements.all? { |er| er.satisfied?(plan) }
   end
   
   # Returns a list of conflicts with a given plan.

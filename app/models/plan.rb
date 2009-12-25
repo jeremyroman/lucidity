@@ -1,28 +1,19 @@
 # Represents a planned course schedule
 class Plan < ActiveRecord::Base
   has_many :terms, :dependent => :destroy
-  has_many :courses, :through => :terms
+  has_many :course_memberships, :through => :terms
   
   # Returns true if the plan has no internal conflicts
   # (that is, all courses have their prerequisites satisfied),
   # and false otherwise.
   def internally_consistent?
-    internal_conflicts.empty?
+    course_memberships.all?(&:satisfied?)
   end
   
-  # Retruns a list of internal conflicts.
+  # Returns a list of internal conflicts.
   # Each element will implement #conflict_description.
   def internal_conflicts
-    retval = []
-    
-    terms.each do |term|
-      term.courses.each do |course|
-        retval << course unless course.offered?(term.season)
-        retval += course.course_requirements.reject { |cr| cr.satisfied?(term, self) }
-      end
-    end
-    
-    retval
+    course_memberships.map(&:conflicts).inject(&:+)
   end
   
   # the following stuff is mostly for usage in script/console
