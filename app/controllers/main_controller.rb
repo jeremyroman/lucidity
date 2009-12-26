@@ -4,6 +4,6 @@
 class MainController < ApplicationController
   # Serves the main UI.
   def index
-    @plans = Plan.find(:all, :include => {:terms => :courses})
+    @plans = Plan.find(:all, :include => {:terms => {:course_memberships => :course}})
   end
 end

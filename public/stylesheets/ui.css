@@ -47,8 +47,12 @@ strong {
 .portlet-content { padding:0.4em; }
 
 
-#portlet-info .portlet-content p:nth-child(2) {
+#portlet-info .portlet-content p:first-child {
 	margin-top:0;
+}
+
+#portlet-info .portlet-content strong {
+	font-size:1.2em;
 }
 
 /* TABS */

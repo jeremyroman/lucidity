@@ -4,7 +4,9 @@ $(function() {
 	
 	// Initialize tabs
 	$(".tabs").tabs({
-		show: function(ev, ui) {}
+		show: function(ev, ui) {
+			$("#portlet-endpoints .portlet-content").load("/endpoints","plan_id=2")
+		}
 	});
 	$(".tabs").css("background","none");
 	
@@ -28,6 +30,19 @@ $(function() {
 	// initialize term stuff
 	$(".term-cap").addClass("ui-widget-header");
 	$(".term-course").addClass("ui-widget-content");
-	$(".term").sortable({ items:'.term-course', connectWith:'.term' });
+	$(".term").sortable({ items:'.term-course', connectWith:'.term',
+	 	update: function(ev, ui) {
+			if (console) {
+				console.log(this);
+				console.log([ev, ui]);
+			}
+		}
+	});
 	$("#portlet-info .term-course").draggable({ appendTo:'body', helper:'clone', connectToSortable:'.term', zIndex:10 });
+	$(".term-course").mousedown(function() {
+		$(".term-course").removeClass("ui-state-highlight");
+		$(this).addClass("ui-state-highlight");
+		id = $(this).children("input[name=id]").val();
+		$("#portlet-info .portlet-content").load('/courses/' + id);
+	});
 });
