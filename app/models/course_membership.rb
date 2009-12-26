@@ -2,6 +2,7 @@
 class CourseMembership < ActiveRecord::Base
   belongs_to :course
   belongs_to :term
+  acts_as_list :scope => :term
   
   # Returns true if this course membership is
   # valid, and false otherwise.
