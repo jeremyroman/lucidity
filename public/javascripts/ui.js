@@ -1,12 +1,44 @@
+function initializePlan(root) {
+	// initialize term stuff
+	$(".term-cap", root).addClass("ui-widget-header").disableSelection();
+	$(".term-course", root).addClass("ui-widget-content").disableSelection();
+	
+	$(".term", root).sortable({ items:'.term-course', connectWith:'.term',
+	 	update: function(ev, ui) {
+			if (console) {
+				console.log(this);
+				console.log([ev, ui]);
+			}
+		}
+	});
+	
+	$(".term-course", root).mousedown(function() {
+		$(".term-course").removeClass("ui-state-highlight");
+		$(this).addClass("ui-state-highlight");
+		id = $(this).children("input[name=id]").val();
+		$("#portlet-info .portlet-content").load('/courses/' + id);
+	});
+}
+
 $(function() {
 	// Initialize header stuff
 	$("#header").addClass("ui-widget ui-widget-header");
 	
 	// Initialize tabs
 	$(".tabs").tabs({
+		load: function(ev, ui) {
+			initializePlan(ui.panel);
+		},
 		show: function(ev, ui) {
-			$("#portlet-endpoints .portlet-content").load("/endpoints","plan_id=2")
-		}
+			console.log([ev, ui]);
+			id_match =  ui.tab.href.match(/(\d+)$/);
+			if (!id_match) return;
+			
+			plan_id = id_match[1];
+			$("#portlet-endpoints .portlet-content").load("/plans/" + plan_id + "/endpoints");
+			$("#portlet-conflicts .portlet-content").load("/plans/" + plan_id + "/conflicts");
+		},
+		selected: document.cookie
 	});
 	$(".tabs").css("background","none");
 	
@@ -27,22 +59,8 @@ $(function() {
 	
 	$(".portlet-header").disableSelection();
 	
-	// initialize term stuff
-	$(".term-cap").addClass("ui-widget-header");
-	$(".term-course").addClass("ui-widget-content");
-	$(".term").sortable({ items:'.term-course', connectWith:'.term',
-	 	update: function(ev, ui) {
-			if (console) {
-				console.log(this);
-				console.log([ev, ui]);
-			}
-		}
-	});
-	$("#portlet-info .term-course").draggable({ appendTo:'body', helper:'clone', connectToSortable:'.term', zIndex:10 });
-	$(".term-course").mousedown(function() {
-		$(".term-course").removeClass("ui-state-highlight");
-		$(this).addClass("ui-state-highlight");
-		id = $(this).children("input[name=id]").val();
-		$("#portlet-info .portlet-content").load('/courses/' + id);
-	});
+	// if anything's already been loaded as far as plans go, handle that
+	initializePlan(document);
 });
+
+//$("#portlet-info .term-course").draggable({ appendTo:'body', helper:'clone', connectToSortable:'.term', zIndex:10 });

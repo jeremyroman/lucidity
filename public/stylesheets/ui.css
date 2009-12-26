@@ -44,7 +44,8 @@ strong {
 
 .portlet-header .ui-icon { float:right; cursor:pointer; }
 
-.portlet-content { padding:0.4em; }
+.portlet-content { padding:0.8em; }
+.portlet-content ul { padding-left:2em; }
 
 
 #portlet-info .portlet-content p:first-child {

@@ -9,7 +9,7 @@ class Course < ActiveRecord::Base
   # Returns a description to be shown when the course is
   # the conflict object. In this case, a message that the
   # course is not offered in the term specified.
-  def conflict_description
+  def conflict_description(style=:long)
     "#{code} is only offered in terms #{offered}"
   end
   

@@ -21,12 +21,16 @@
     <div class="tabs">
       <ul>
         <% for plan in @plans -%>
-        <li><a href="#plan-<%= plan.id %>"><%=h plan.name %>
+          <% if AppConfig.lazy_load_plans %>
+            <li><%= link_to h(plan.name), plan_path(plan), :title => "plan-#{plan.id}" %></li>
+          <% else %>
+            <li><a href="#plan-<%= plan.id %>"><%=h plan.name %></a></li>
+          <% end -%>
         <% end -%>
         <li class="tab-newplan"><a href="#newplan"><span class="ui-icon ui-icon-plusthick">New</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
       </ul>
       
-      <%= render :partial => @plans %>
+      <%= render :partial => @plans unless AppConfig.lazy_load_plans %>
       
       <div id="newplan">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     </div>

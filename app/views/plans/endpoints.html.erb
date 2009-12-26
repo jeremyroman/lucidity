@@ -1,0 +1,11 @@
+<% @conflicts.each do |endpoint, conflicts| %>
+  <%=h endpoint.name %><ul>
+    <% if conflicts.empty? %>
+      <li>Satisfied</li>
+    <% else %>
+      <% for conflict in conflicts %>
+        <li><%=h conflict.conflict_description(:short) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
