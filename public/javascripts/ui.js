@@ -3,7 +3,9 @@ $(function() {
 	$("#header").addClass("ui-widget ui-widget-header");
 	
 	// Initialize tabs
-	$(".tabs").tabs();
+	$(".tabs").tabs({
+		show: function(ev, ui) {}
+	});
 	$(".tabs").css("background","none");
 	
 	// Initialize portlet stuff
@@ -27,5 +29,5 @@ $(function() {
 	$(".term-cap").addClass("ui-widget-header");
 	$(".term-course").addClass("ui-widget-content");
 	$(".term").sortable({ items:'.term-course', connectWith:'.term' });
-	$(".portlet-info .term-course").draggable({ appendTo:'body', helper:'clone', connectToSortable:'.term', zIndex:10 });
+	$("#portlet-info .term-course").draggable({ appendTo:'body', helper:'clone', connectToSortable:'.term', zIndex:10 });
 });

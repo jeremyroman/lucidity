@@ -1,49 +1,43 @@
 <div class="portlet-bar">
-      <div class="portlet">
-        <div class="portlet-header">Search</div>
-        <div class="portlet-content">
-          <form><input /><input type="submit" value="Search" /></form>
-        </div>
-      </div>
-      
-      <div class="portlet portlet-info">
-        <div class="portlet-header">Information</div>
-        <div class="portlet-content">
-          <div class="term-course">
-            <p><strong>CHEM 120</strong></p>
-            <p>Physical and Chemical Properties of Matter</p>
-          </div>  <div class="term-course">
-              <p><strong>CHEM 120</strong></p>
-              <p>Physical and Chemical Properties of Matter</p>
-            </div>  <div class="term-course">
-                <p><strong>CHEM 120</strong></p>
-                <p>Physical and Chemical Properties of Matter</p>
-              </div>
-          <p>LEC,TST,TUT 0.50</p>
-          <p>The stoichiometry of compounds and chemical reactions. Properties of gases. Periodicity and chemical bonding. Energy changes in chemical systems. Electronic structure of atoms and molecules; correlation with the chemical reactivity of common elements, inorganic and organic compounds.</p>
-          <p>[Note: Offered: F. Science students must also take CHEM 120L. Successful completion of Grade 12 U Calculus and Vectors and Grade 12 U Chemistry or equivalent courses is required]</p>
-          <p>Antireq: CHEM 121</p>
-        </div>
-      </div>
-    
-      <div class="portlet">
-        <div class="portlet-header">Endpoints</div>
-        <div class="portlet-content">
-          Computational Science/Physics<ul>
-              <li>Satisfied</li>
-            </ul>
-            Joint Honours with Mathematics<ul>
-              <li>MATH 135</li>
-            </ul>
-        </div>
-      </div>
-    
-      <div class="portlet">
-        <div class="portlet-header">Conflicts</div>
-        <div class="portlet-content">
-          MATH 237 requires: <ul>
-            <li>MATH 138</li>
-          </ul>
-        </div>
-      </div>
+  <% portlet :search do %>
+    <form><input /><input type="submit" value="Search" /></form>
+  <% end %>
+  
+  <% portlet :info, "Information" do %>
+    <div class="term-course">
+      <p><strong>CHEM 120</strong></p>
+      <p>Physical and Chemical Properties of Matter</p>
     </div>
+    
+    <div class="term-course">
+      <p><strong>CHEM 120</strong></p>
+      <p>Physical and Chemical Properties of Matter</p>
+    </div>
+    
+    <div class="term-course">
+      <p><strong>CHEM 120</strong></p>
+      <p>Physical and Chemical Properties of Matter</p>
+    </div>
+    
+    <p>LEC,TST,TUT 0.50</p>
+    <p>The stoichiometry of compounds and chemical reactions. Properties of gases. Periodicity and chemical bonding. Energy changes in chemical systems. Electronic structure of atoms and molecules; correlation with the chemical reactivity of common elements, inorganic and organic compounds.</p>
+    <p>[Note: Offered: F. Science students must also take CHEM 120L. Successful completion of Grade 12 U Calculus and Vectors and Grade 12 U Chemistry or equivalent courses is required]</p>
+    <p>Antireq: CHEM 121</p>
+  <% end %>
+  
+  <% portlet :endpoints do %>
+    Computational Science/Physics<ul>
+      <li>Satisfied</li>
+    </ul>
+    
+    Joint Honours with Mathematics<ul>
+      <li>MATH 135</li>
+    </ul>
+  <% end %>
+  
+  <% portlet :conflicts do %>
+    MATH 237 requires: <ul>
+      <li>MATH 138</li>
+    </ul>
+  <% end %>
+</div>
