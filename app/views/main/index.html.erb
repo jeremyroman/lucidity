@@ -4,7 +4,9 @@
     <title><%= AppConfig.title %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
     
-    <%= javascript_include_tag "/jquery/js/jquery-1.3.2.min.js", "/jquery/js/jquery-ui-1.7.2.custom.min.js", :cache => "jquery" %>
+    <%= javascript_include_tag "/jquery/js/jquery-1.3.2.min.js",
+                              "/jquery/js/jquery-ui-1.7.2.custom.min.js",
+                              "/jquery/js/jquery.cookie.js", :cache => "jquery" %>
     <%= stylesheet_link_tag "/jquery/css/#{AppConfig.jquery_theme}/jquery-ui-1.7.2.custom.css" %>
     
     <%= stylesheet_link_tag :all, :cache => "all" %>
@@ -21,9 +23,9 @@
     <div class="tabs">
       <ul>
         <% for plan in @plans -%>
-          <% if AppConfig.lazy_load_plans %>
+          <% if AppConfig.lazy_load_plans -%>
             <li><%= link_to h(plan.name), plan_path(plan), :title => "plan-#{plan.id}" %></li>
-          <% else %>
+          <% else -%>
             <li><a href="#plan-<%= plan.id %>"><%=h plan.name %></a></li>
           <% end -%>
         <% end -%>

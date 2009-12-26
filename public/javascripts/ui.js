@@ -38,9 +38,8 @@ $(function() {
 			$("#portlet-endpoints .portlet-content").load("/plans/" + plan_id + "/endpoints");
 			$("#portlet-conflicts .portlet-content").load("/plans/" + plan_id + "/conflicts");
 		},
-		selected: document.cookie
-	});
-	$(".tabs").css("background","none");
+		cookie: { expires: 7 }, cache: true
+	}).css("background","none");
 	
 	// Initialize portlet stuff
 	$(".portlet-bar").sortable({axis:'y', handle:'.portlet-header'});
