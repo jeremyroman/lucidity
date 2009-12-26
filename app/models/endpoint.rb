@@ -1,7 +1,7 @@
 # Represents an endpoint (e.g. a degree or minor)
 # and its requirements.
 class Endpoint < ActiveRecord::Base
-  has_many :endpoint_requirements
+  has_many :endpoint_requirements, :dependent => :destroy 
   
   # Returns true if the plan satisfies all of the
   # endpoint requirements, and false otherwise.

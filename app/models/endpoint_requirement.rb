@@ -2,7 +2,7 @@
 # of an endpoint.
 class EndpointRequirement < ActiveRecord::Base
   belongs_to :endpoint
-  belongs_to :course_group
+  belongs_to :course_group, :dependent => :destroy
   
   # Returns true is the requirement is satisfied by the plan given
   # and false otherwise.

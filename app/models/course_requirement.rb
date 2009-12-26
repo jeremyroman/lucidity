@@ -2,7 +2,7 @@
 # into a course.
 class CourseRequirement < ActiveRecord::Base
   belongs_to :course
-  belongs_to :course_group
+  belongs_to :course_group, :dependent => :destroy
   
   # Returns true is the requirement is satisfied by the plan given
   # if the course is taken in a specific term, and false otherwise.
