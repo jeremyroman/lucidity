@@ -1,5 +1,6 @@
 <div class="term-course<%= " ui-state-error" unless course_membership.satisfied? %>">
-  <%= hidden_field_tag 'id', course_membership.course.id %>
+  <%= hidden_field_tag :cid, course_membership.course.id %>
+  <%= hidden_field_tag "mid[]", course_membership.id %>
   <p><strong><%=h course_membership.course.code %></strong></p>
   <p><%=h course_membership.course.name %></p>
 </div>
