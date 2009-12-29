@@ -1,8 +1,8 @@
 <div class="term">
   <div class="term-cap">
-    <%= hidden_field_tag "terms[][term_id]", term.id %>
     <p><strong><%=h term.name %></strong></p>
     <p><%= {"F" => "Fall", "W" => "Winter", "S" => "Spring"}[term.season] %></p>
+    <%= hidden_field_tag "terms[][term_id]", term.id %>
   </div>
   
   <%= render :partial => term.course_memberships %>

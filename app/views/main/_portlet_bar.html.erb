@@ -3,26 +3,13 @@
     <% form_tag search_courses_path, :method => :get do -%>
       <%= text_field_tag :query %>
       <%= submit_tag "Search", :name => nil %>
+      <input type="button" class="search_clear" value="Clear" />
     <% end %>
     
     <div id="search_results"></div>
   <% end %>
   
   <% portlet :info, "Information" do %>
-    <!--<div class="term-course">
-      <p><strong>CHEM 120</strong></p>
-      <p>Physical and Chemical Properties of Matter</p>
-    </div>
-    
-    <div class="term-course">
-      <p><strong>CHEM 120</strong></p>
-      <p>Physical and Chemical Properties of Matter</p>
-    </div>
-    
-    <div class="term-course">
-      <p><strong>CHEM 120</strong></p>
-      <p>Physical and Chemical Properties of Matter</p>
-    </div>-->
     <p>No course selected.</p>
   <% end %>
   
@@ -32,5 +19,15 @@
   
   <% portlet :conflicts do %>
     <p>No plan selected.</p>
+  <% end %>
+  
+  <% portlet :actions do %>
+    <div class="action action-trash">
+      <div class="ui-icon ui-icon-trash"></div> Trash
+    </div>
+    
+    <div class="action action-override">
+      <div class="ui-icon ui-icon-check"></div> Override
+    </div>
   <% end %>
 </div>

@@ -1,5 +1,5 @@
 Waterloonatic = {
-	defaultInitializers: ['header','tabs','portlets','search','plan'],
+	defaultInitializers: ['header','tabs','portlets','search','plan','actions','misc_ui'],
 	
 	init: function(what, param) {
 		if (typeof(what) == 'undefined') what = Waterloonatic.defaultInitializers;
@@ -61,6 +61,11 @@ Waterloonatic = {
 				});
 				return false;
 			});
+			
+			$("#portlet-search .search_clear").click(function() {
+				$("#portlet-search :text").val("");
+				$("#search_results").html("");
+			});
 		},
 		
 		plan: function(root) {
@@ -77,7 +82,32 @@ Waterloonatic = {
 				id = $(this).children("input[name*=cid]").val();
 				$("#portlet-info .portlet-content").load('/courses/' + id);
 			});
+		},
+		
+		actions: function() {
+			$("#portlet-actions .action").hover(
+				function() { $(this).addClass("ui-state-highlight"); },
+				function() {
+					if(! $(this).hasClass("ui-state-highlight-persistent"))
+						$(this).removeClass("ui-state-highlight");
+				}
+			).addClass("ui-widget-content").disableSelection();
+			
+			$(".action-trash").click(function() {
+				mid = $(".ui-tabs-panel:not(.ui-tabs-hide) .term-course.ui-state-highlight input[name*=mid]").val();
+				$.post("/course_memberships/"+mid, { _method: 'delete' }, Waterloonatic.reload);
+			});
+		},
+		
+		misc_ui: function() {
+			$(".ui-state-highlight-persistent").addClass("ui-state-highlight");
 		}
+	},
+	
+	reload: function() {
+		$(".tabs").tabs('load', $(".tabs").tabs('option', 'selected'));
+		$("#portlet-endpoints .portlet-content").load("/plans/" + plan_id + "/endpoints");
+		$("#portlet-conflicts .portlet-content").load("/plans/" + plan_id + "/conflicts");
 	},
 	
 	update: function() {
@@ -89,11 +119,7 @@ Waterloonatic = {
 		// (timeout used since multiple events may be triggered)
 		$.doTimeout('push-and-reload-plan-'+plan_id, 50, function() {
 			serialized = $(".ui-tabs-panel:not(.ui-tabs-hide) input[name^=terms]").serialize();
-			$.post("/plans/"+plan_id+"/reorder", serialized, function(data, status) {
-				$(".tabs").tabs('load', $(".tabs").tabs('option', 'selected'));
-				$("#portlet-endpoints .portlet-content").load("/plans/" + plan_id + "/endpoints");
-				$("#portlet-conflicts .portlet-content").load("/plans/" + plan_id + "/conflicts");
-			});
+			$.post("/plans/"+plan_id+"/reorder", serialized, Waterloonatic.reload);
 		});
 	}
 }
