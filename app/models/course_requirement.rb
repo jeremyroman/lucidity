@@ -30,8 +30,12 @@ class CourseRequirement < ActiveRecord::Base
   # Returns a description of the conflict (that is, that
   # the requirement is not satisfied)
   def conflict_description(style=:long)
-    if prerequisite?
+    if prerequisite? and number == course_group.courses.size
+      "#{course.code} prerequisite: #{course_group}"
+    elsif prerequisite?
       "#{course.code} prerequisite: #{number} of #{course_group}"
+    elsif corequisite? and number == course_group.courses.size
+      "#{course.code} corequisite: #{course_group}"
     elsif corequisite?
       "#{course.code} corequisite: #{number} of #{course_group}"
     elsif antirequisite?

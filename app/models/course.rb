@@ -19,4 +19,11 @@ class Course < ActiveRecord::Base
   def offered?(season_or_term)
     offered.include?(season_or_term.is_a?(Term) ? season_or_term.season : season_or_term)
   end
+  
+  # returns a link to the course on the
+  # current undergrad calendar
+  # (year is currently hardcoded)
+  def url
+    "http://www.ucalendar.uwaterloo.ca/0910/COURSE/course-%1$s.html#%1$s%2$s" % code.match(/([^ ]+) ([^ ]+)/)[1..-1]
+  end
 end

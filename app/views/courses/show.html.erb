@@ -4,3 +4,5 @@
   <%=h @course.name %></p>
 
 <verbatim><%=h @course.long_description %></verbatim>
+
+<p>(<%= link_to "source", @course.url %>)</p>

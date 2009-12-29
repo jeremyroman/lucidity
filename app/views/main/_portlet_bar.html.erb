@@ -1,6 +1,11 @@
 <div class="portlet-bar">
   <% portlet :search do %>
-    <form><input /><input type="submit" value="Search" /></form>
+    <% form_tag search_courses_path, :method => :get do -%>
+      <%= text_field_tag :query %>
+      <%= submit_tag "Search", :name => nil %>
+    <% end %>
+    
+    <div id="search_results"></div>
   <% end %>
   
   <% portlet :info, "Information" do %>
