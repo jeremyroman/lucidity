@@ -4,10 +4,6 @@
 class MainController < ApplicationController
   # Serves the main UI.
   def index
-    if AppConfig.lazy_load_plans
-      @plans = Plan.all
-    else
-      @plans = Plan.find(:all, :include => {:terms => {:course_memberships => :course}})
-    end
+    @plans = Plan.all
   end
 end

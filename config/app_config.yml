@@ -1,4 +1,3 @@
 common:
   title: Waterloonatic
   jquery_theme: ui-lightness
-  lazy_load_plans: true
