@@ -16,13 +16,15 @@ class CourseRequirement < ActiveRecord::Base
     
     # handle pre- and co-requisite courses
     course_group.courses.select do |course|
-      term2 = plan.terms.detect { |t| t.courses.include? course }
-      
-      # TODO: Use a better comparator than the primary key
-      if prerequisite?
-        term2 && (term2.id < term.id)
-      elsif corequisite?
-        term2 && (term2.id <= term.id)
+      # FIXME: implement this better
+      plan.terms.any? do |t|
+        if prerequisite?
+          op = "<"
+        elsif corequisite?
+          op = "<="
+        end
+        
+        plan.terms.count(:include => :courses, :conditions => ["courses.id = ? AND terms.id #{op} ?", course, term]) > 0
       end
     end.size >= number
   end
