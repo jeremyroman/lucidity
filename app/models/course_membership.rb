@@ -7,12 +7,14 @@ class CourseMembership < ActiveRecord::Base
   # Returns true if this course membership is
   # valid, and false otherwise.
   def satisfied?
-    course.offered?(term) and course.course_requirements.all? { |cr| cr.satisfied?(term, term.plan) }
+    override or (course.offered?(term) and course.course_requirements.all? { |cr| cr.satisfied?(term, term.plan) })
   end
   
   # Returns an array of conflicts caused by this
   # course membership.
   def conflicts
+    return [] if override
+    
     (course.offered?(term) ? [] : [course]) +
         course.course_requirements.reject { |cr| cr.satisfied?(term, term.plan) }
   end

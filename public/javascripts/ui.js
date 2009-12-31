@@ -77,10 +77,21 @@ Waterloonatic = {
 			$(".term", root).sortable({ items:'.term-course', connectWith:'.term', update: Waterloonatic.update });
 
 			$(".term-course", root).mousedown(function() {
+				// highlight
 				$(".term-course").removeClass("ui-state-highlight");
 				$(this).addClass("ui-state-highlight");
+				
+				// show course info
 				id = $(this).children("input[name*=cid]").val();
 				$("#portlet-info .portlet-content").load('/courses/' + id);
+				
+				// update actions portlet
+				override_field = $(this).children("input[name*=override]");
+				if (override_field.size() < 1 || override_field.val() == "false") {
+					$("#portlet-actions .action-override").removeClass("ui-state-highlight ui-state-highlight-persistent");
+				} else {
+					$("#portlet-actions .action-override").addClass("ui-state-highlight ui-state-highlight-persistent");
+				}
 			});
 		},
 		
@@ -96,6 +107,13 @@ Waterloonatic = {
 			$(".action-trash").click(function() {
 				mid = $(".ui-tabs-panel:not(.ui-tabs-hide) .term-course.ui-state-highlight input[name*=mid]").val();
 				$.post("/course_memberships/"+mid, { _method: 'delete' }, Waterloonatic.reload);
+			});
+			
+			$(".action-override").click(function() {
+				mid = $(".ui-tabs-panel:not(.ui-tabs-hide) .term-course.ui-state-highlight input[name*=mid]").val();
+				$(this).toggleClass("ui-state-highlight-persistent");
+				new_override = $(this).hasClass("ui-state-highlight-persistent") ? "true" : "false" ;
+				$.post("/course_memberships/"+mid, { _method: 'put', 'course_membership[override]': new_override }, Waterloonatic.reload);
 			});
 		},
 		

@@ -1,6 +1,7 @@
 <div class="term-course<%= " ui-state-error" unless course_membership.satisfied? %>">
-  <%= hidden_field_tag "terms[][cid][]", course_membership.course.id %>
-  <%= hidden_field_tag "terms[][mid][]", course_membership.id %>
+  <%= hidden_field_tag "terms[][memberships][][cid]", course_membership.course.id %>
+  <%= hidden_field_tag "terms[][memberships][][mid]", course_membership.id %>
+  <%= hidden_field_tag "terms[][memberships][][override]", course_membership.override if course_membership.override %>
   <p><strong><%=h course_membership.course.code %></strong></p>
   <p><%=h course_membership.course.name %></p>
 </div>
