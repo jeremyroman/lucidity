@@ -2,6 +2,8 @@
 # and are not handled by other classes such as
 # PlansController.
 class CourseMembershipsController < ApplicationController
+  cache_sweeper :course_membership_sweeper
+  
   # Removes a course membership.
   def destroy
     @cm = CourseMembership.find(params[:id])

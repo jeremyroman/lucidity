@@ -18,4 +18,10 @@ class CourseMembership < ActiveRecord::Base
     (course.offered?(term) ? [] : [course]) +
         course.course_requirements.reject { |cr| cr.satisfied?(term, term.plan) }
   end
+  
+  # Key used to store the view fragment
+  # (centralized to avoid errors in duplication)
+  def cache_key
+    "course_memberships/#{id}-#{course_id}"
+  end
 end

@@ -4,3 +4,4 @@ config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
 
 config.log_level = :debug
+ActionController::Base.cache_store = :file_store, "#{RAILS_ROOT}/tmp/cache"

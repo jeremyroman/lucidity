@@ -1,3 +1,5 @@
+<% cache "portlet_bar" do %>
+
 <div class="portlet-bar">
   <% portlet :search do %>
     <% form_tag search_courses_path, :method => :get do -%>
@@ -31,3 +33,5 @@
     </div>
   <% end %>
 </div>
+
+<% end %>

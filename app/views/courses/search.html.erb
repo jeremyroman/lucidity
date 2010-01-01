@@ -1,1 +1,10 @@
-<%= render :partial => "course_memberships/course_membership", :collection => @shims %>
+<% for course in @courses %>
+
+<div class="term-course">
+  <%= hidden_field_tag "terms[][memberships][][cid]", course.id %>
+  <%= hidden_field_tag "terms[][memberships][][mid]", "new" %>
+  <p><strong><%=h course.code %></strong></p>
+  <p><%=h course.name %></p>
+</div>
+
+<% end %>

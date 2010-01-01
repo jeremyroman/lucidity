@@ -1,5 +1,8 @@
 # Services requests that pertain to plans.
 class PlansController < ApplicationController
+  cache_sweeper :course_membership_sweeper, :only => [:reorder]
+  caches_action :endpoints
+  
   # Renders a single plan.
   def show
     # load the plan *very* eagerly :P
@@ -36,7 +39,7 @@ class PlansController < ApplicationController
         membership.term = term
         membership.override = mem[:override]
         membership.position = idx
-        membership.save!
+        membership.save! if membership.changed?
       end
     end
     

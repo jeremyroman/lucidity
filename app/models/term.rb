@@ -4,6 +4,12 @@ class Term < ActiveRecord::Base
   has_many :courses, :through => :course_memberships
   belongs_to :plan
   
+  # Key used to store the view fragment
+  # (centralized to avoid errors in duplication)
+  def cache_key
+    "terms/#{id}"
+  end
+  
   #:nocov:
   
   # Adds a course to the term, looking it up in the database

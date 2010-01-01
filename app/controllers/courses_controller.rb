@@ -19,7 +19,5 @@ class CoursesController < ApplicationController
     query = params[:query]
     @courses = Course.find(:all, :limit => 6, :conditions => 
       ["code LIKE ? OR name LIKE ?", "#{query}%", "%#{query}%"])
-    
-    @shims = @courses.map { |c| CMShim.new(c) }
   end
 end
