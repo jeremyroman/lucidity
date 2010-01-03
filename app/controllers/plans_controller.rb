@@ -20,4 +20,13 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     @conflicts = @plan.internal_conflicts
   end
+  
+  # Reorder plans
+  def reorder
+    params[:plans].each_with_index do |plan_id, idx|
+      Plan.update(plan_id, :position => idx)
+    end
+    
+    render :nothing => true
+  end
 end

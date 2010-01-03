@@ -32,7 +32,17 @@ Waterloonatic = {
 					$("#portlet-endpoints .portlet-content").load("/plans/" + plan_id + "/endpoints");
 					$("#portlet-conflicts .portlet-content").load("/plans/" + plan_id + "/conflicts");
 				}
-			}).sortable({ items: 'li:not(.tab-newplan)', axis:'x', containment:'parent' }).css("background","none");
+			}).sortable({ items: 'li:not(.tab-newplan)', axis:'x', containment:'parent',
+				update: function() {
+					data = $.map($(".tabs li:not(.tab-newplan) a").get(), function(link) {
+						id_match = link.href.match(/(\d+)$/);
+						if (!id_match) return;
+						return "plans[]=" + id_match[1];
+					}).join("&");
+					
+					$.post("/plans/reorder", data);
+				}
+			}).css("background","none");
 		},
 		
 		portlets: function() {

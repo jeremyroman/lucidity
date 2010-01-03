@@ -2,6 +2,7 @@
 class Plan < ActiveRecord::Base
   has_many :terms, :dependent => :destroy
   has_many :course_memberships, :through => :terms
+  acts_as_list
   
   # Returns true if the plan has no internal conflicts
   # (that is, all courses have their prerequisites satisfied),

@@ -10,6 +10,6 @@ class MainController < ApplicationController
   
   # Serves the main UI.
   def index
-    @plans = Plan.all
+    @plans = Plan.all(:order => "position")
   end
 end

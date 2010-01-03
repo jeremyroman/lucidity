@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :courses, :collection => { :search => :get }
   map.resources :course_memberships
-  map.resources :plans, :member => { :endpoints => :get, :conflicts => :get } do |plans|
+  map.resources :plans, :member => { :endpoints => :get, :conflicts => :get }, :collection => { :reorder => :post } do |plans|
     plans.resources :course_memberships, :collection => { :reorder => :post }
   end
   
