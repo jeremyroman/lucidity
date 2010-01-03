@@ -14,7 +14,7 @@ class Plan < ActiveRecord::Base
   # Returns a list of internal conflicts.
   # Each element will implement #conflict_description.
   def internal_conflicts
-    course_memberships.map(&:conflicts).inject(&:+)
+    course_memberships.map(&:conflicts).inject([], &:+)
   end
   
   # the following stuff is mostly for usage in script/console
