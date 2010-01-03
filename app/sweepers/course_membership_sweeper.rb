@@ -20,7 +20,7 @@ class CourseMembershipSweeper < ActionController::Caching::Sweeper
     expire_fragment(cm.cache_key)
     expire_fragment("terms/#{cm.term_id}") # no need to fetch the model to get its cache key
     
-    if cm.term_id_changed?
+    if cm.term_id_changed? or cm.frozen?
       expire_fragment("terms/#{cm.term_id_was}") # expire the old term too
     
       # find memberships that may care about this course

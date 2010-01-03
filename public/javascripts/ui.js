@@ -13,15 +13,17 @@ Waterloonatic = {
 		},
 		
 		tabs: function() {
-			$(".tabs").tabs({
+			$(".tabs").tabs({ cookie: { expires: 7 }, cache: true,
 				load: function(ev, ui) {
 					Waterloonatic.init('plan', ui.panel);
 					
 					// try to make the same course selected
-					sel_id = $("#portlet-info input[name=course_id]").val();
+					sel_id = Waterloonatic.selection;
 					if(!sel_id) return;
-					$("input[name*=cid][value="+sel_id+"]", ui.panel).parent().addClass("ui-state-highlight");
+					$(".term-course").removeClass("ui-state-highlight");
+					$("input[name*=mid][value="+sel_id+"]", ui.panel).parent(".term-course").addClass("ui-state-highlight");
 				},
+				
 				show: function(ev, ui) {
 					id_match =  ui.tab.href.match(/(\d+)$/);
 					if (!id_match) return;
@@ -29,13 +31,12 @@ Waterloonatic = {
 					plan_id = id_match[1];
 					$("#portlet-endpoints .portlet-content").load("/plans/" + plan_id + "/endpoints");
 					$("#portlet-conflicts .portlet-content").load("/plans/" + plan_id + "/conflicts");
-				},
-				cookie: { expires: 7 }, cache: true
-			}).css("background","none");
+				}
+			}).sortable({ items: 'li:not(.tab-newplan)', axis:'x', containment:'parent' }).css("background","none");
 		},
 		
 		portlets: function() {
-			$(".portlet-bar").sortable({axis:'y', handle:'.portlet-header'});
+			$(".portlet-bar").sortable({ axis:'y', handle:'.portlet-header' });
 
 			$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
 				.find(".portlet-header")
@@ -57,7 +58,7 @@ Waterloonatic = {
 				$.post("/courses/search", $(this).serialize(), function(data, status) {
 					$("#search_results").html(data);
 					$("#search_results .term-course").draggable({ appendTo:'body', helper:'clone', connectToSortable:'.term', zIndex:10 })
-						.addClass("ui-widget-content").disableSelection();
+						.addClass("ui-widget-content").disableSelection().mousedown(Waterloonatic.course_select);
 				});
 				return false;
 			});
@@ -72,27 +73,8 @@ Waterloonatic = {
 			if (typeof(root) == 'undefined') root = document;
 
 			$(".term-cap", root).addClass("ui-widget-header").disableSelection();
-			$(".term-course", root).addClass("ui-widget-content").disableSelection();
-
+			$(".term-course", root).addClass("ui-widget-content").disableSelection().mousedown(Waterloonatic.course_select);
 			$(".term", root).sortable({ items:'.term-course', connectWith:'.term', update: Waterloonatic.update });
-
-			$(".term-course", root).mousedown(function() {
-				// highlight
-				$(".term-course").removeClass("ui-state-highlight");
-				$(this).addClass("ui-state-highlight");
-				
-				// show course info
-				id = $(this).children("input[name*=cid]").val();
-				$("#portlet-info .portlet-content").load('/courses/' + id);
-				
-				// update actions portlet
-				override_field = $(this).children("input[name*=override]");
-				if (override_field.size() < 1 || override_field.val() == "false") {
-					$("#portlet-actions .action-override").removeClass("ui-state-highlight ui-state-highlight-persistent");
-				} else {
-					$("#portlet-actions .action-override").addClass("ui-state-highlight ui-state-highlight-persistent");
-				}
-			});
 		},
 		
 		actions: function() {
@@ -137,8 +119,29 @@ Waterloonatic = {
 		// (timeout used since multiple events may be triggered)
 		$.doTimeout('push-and-reload-plan-'+plan_id, 50, function() {
 			serialized = $(".ui-tabs-panel:not(.ui-tabs-hide) input[name^=terms]").serialize();
-			$.post("/plans/"+plan_id+"/reorder", serialized, Waterloonatic.reload);
+			$.post("/plans/"+plan_id+"/course_memberships/reorder", serialized, Waterloonatic.reload);
 		});
+	},
+	
+	course_select: function() {
+		// highlight
+		$(".term-course").removeClass("ui-state-highlight");
+		$(this).addClass("ui-state-highlight");
+		
+		// show course info
+		id = $(this).children("input[name*=cid]").val();
+		$("#portlet-info .portlet-content").load('/courses/' + id);
+		
+		// store the ID
+		Waterloonatic.selection = $(this).children("input[name*=mid]").val();
+		
+		// update actions portlet
+		override_field = $(this).children("input[name*=override]");
+		if (override_field.size() < 1 || override_field.val() == "false") {
+			$("#portlet-actions .action-override").removeClass("ui-state-highlight ui-state-highlight-persistent");
+		} else {
+			$("#portlet-actions .action-override").addClass("ui-state-highlight ui-state-highlight-persistent");
+		}
 	}
 }
 

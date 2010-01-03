@@ -2,7 +2,7 @@
 
 <div class="term-course">
   <%= hidden_field_tag "terms[][memberships][][cid]", course.id %>
-  <%= hidden_field_tag "terms[][memberships][][mid]", "new" %>
+  <%= hidden_field_tag "terms[][memberships][][mid]", "new-#{course.id}" %>
   <p><strong><%=h course.code %></strong></p>
   <p><%=h course.name %></p>
 </div>
