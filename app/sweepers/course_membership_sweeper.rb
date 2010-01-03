@@ -1,5 +1,5 @@
 class CourseMembershipSweeper < ActionController::Caching::Sweeper
-  observe CourseMembership
+  observe CourseMembership unless Rails.env == "test"
   
   def after_create(course_membership)
     expire_cache(course_membership)
