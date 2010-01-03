@@ -1,5 +1,6 @@
 # Represents a planned course schedule
 class Plan < ActiveRecord::Base
+  default_scope :order => "position"
   has_many :terms, :dependent => :destroy
   has_many :course_memberships, :through => :terms
   acts_as_list
