@@ -29,4 +29,21 @@ class PlansController < ApplicationController
     
     render :nothing => true
   end
+  
+  # Displays the new plan form.
+  def new
+    @plan = Plan.new
+  end
+  
+  # Creates a new plan.
+  def create
+    @plan = Plan.new(params[:plan])
+    
+    if @plan.save
+      @newplan = @plan
+      new
+    end
+    
+    render :action => "new"
+  end
 end

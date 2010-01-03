@@ -1,0 +1,16 @@
+<% form_for @plan do |f| %>
+  <p>
+    <strong>Name:</strong>
+    <%= f.text_field :name %>
+  </p>
+  <%= submit_tag "Create Plan" %>
+<% end %>
+
+<script type="text/javascript">
+  $("form#new_plan").ajaxForm({ target: 'div#newplan' });
+  <% if @newplan -%>
+  newplan_id = <%= @newplan.id %>;
+  window.location.hash = '#plan-<%= @newplan.id %>';
+  window.location.reload();
+  <% end -%>
+</script>

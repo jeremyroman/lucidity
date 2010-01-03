@@ -7,7 +7,8 @@
     <%= javascript_include_tag "/jquery/js/jquery-1.3.2.min.js",
                               "/jquery/js/jquery-ui-1.7.2.custom.min.js",
                               "/jquery/js/jquery.cookie.js",
-                              "/jquery/js/jquery.ba-dotimeout.min.js" %>
+                              "/jquery/js/jquery.ba-dotimeout.min.js",
+                              "/jquery/js/jquery.form.js" %>
     <%= stylesheet_link_tag "/jquery/css/#{AppConfig.jquery_theme}/jquery-ui-1.7.2.custom.css" %>
     
     <%= stylesheet_link_tag :all %>
@@ -26,10 +27,8 @@
         <% for plan in @plans -%>
           <li><%= link_to h(plan.name), plan_path(plan), :title => "plan-#{plan.id}" %></li>
         <% end -%>
-        <li class="tab-newplan"><a href="#newplan"><span class="ui-icon ui-icon-plusthick">New</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+        <li class="tab-newplan"><a href="<%= new_plan_path %>" title="newplan"><span class="ui-icon ui-icon-plusthick">New</span>&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
       </ul>
-      
-      <div id="newplan">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
     </div>
   </body>
 </html>
