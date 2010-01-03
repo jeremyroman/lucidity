@@ -2,3 +2,4 @@ coverage
 .rake_tasks
 public/javascripts/jquery.js
 public/stylesheets/all.css
+tmp
