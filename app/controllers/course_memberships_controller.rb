@@ -27,6 +27,7 @@ class CourseMembershipsController < ApplicationController
     
     params[:terms].each do |term_data|
       term = @plan.terms.find(term_data[:term_id])
+      term_data[:memberships] ||= []
       
       term_data[:memberships].each_with_index do |mem,idx|
         if mem[:mid] =~ /^new/

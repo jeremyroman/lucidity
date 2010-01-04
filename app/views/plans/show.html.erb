@@ -1,1 +1,7 @@
 <%= render :partial => @plan.terms %>
+
+<p>
+  <%= link_to "Edit", edit_plan_path(@plan), :onclick => "return $(this).linkToDialog()" %> |
+  <%= link_to "Delete", plan_path(@plan), :method => :delete, :confirm => "Are you sure?" %>
+</p>
+

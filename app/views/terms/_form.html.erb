@@ -1,0 +1,6 @@
+<% adaptive_fields_for "plan", term do |f| %>
+  <p>
+    <%= f.text_field :name, :size => 3 %>
+    <%= f.select :season, [["Fall","F"], ["Winter","W"], ["Spring","S"]] %>
+  </p>
+<% end %>

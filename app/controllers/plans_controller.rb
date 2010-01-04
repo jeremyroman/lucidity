@@ -33,6 +33,11 @@ class PlansController < ApplicationController
   # Displays the new plan form.
   def new
     @plan = Plan.new
+    
+    # pre-generate the sequence for regular students
+    [%w(1A F), %w(1B W), %w(2A F), %w(2B W), %w(3A F), %w(3B W), %w(4A F), %w(4B W)].each do |name, season|
+      @plan.terms.build(:name => name, :season => season)
+    end
   end
   
   # Creates a new plan.
@@ -45,5 +50,24 @@ class PlansController < ApplicationController
     end
     
     render :action => "new"
+  end
+  
+  # Displays the form for editing a plan.
+  def edit
+    @plan = Plan.find(params[:id])
+  end
+  
+  # Updates a plan.
+  def update
+    @plan = Plan.find(params[:id])
+    @plan.update_attributes(params[:plan])
+    redirect_to root_path
+  end
+  
+  # Deletes a plan.
+  def destroy
+    @plan = Plan.find(params[:id])
+    @plan.destroy
+    redirect_to root_path
   end
 end

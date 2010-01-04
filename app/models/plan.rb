@@ -18,6 +18,19 @@ class Plan < ActiveRecord::Base
     course_memberships.map(&:conflicts).inject([], &:+)
   end
   
+  # Creates terms using supplied attributes.
+  def new_term_attributes=(term_attributes)
+    term_attributes.each { |attribs| terms.build(attribs) }
+  end
+  
+  # Updates terms using supplied attributes.
+  def existing_term_attributes=(term_attributes)
+    term_attributes.each do |id, attribs|
+      term = terms.find(id)
+      term.update_attributes(attribs)
+    end
+  end
+  
   # the following stuff is mostly for usage in script/console
   # and does not need to be covered by tests
   
