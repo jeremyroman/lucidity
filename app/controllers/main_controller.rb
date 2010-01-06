@@ -8,6 +8,8 @@ class MainController < ApplicationController
   # development environment. :)
   caches_action :index
   
+  layout false
+  
   # Serves the main UI.
   def index
     @plans = Plan.all

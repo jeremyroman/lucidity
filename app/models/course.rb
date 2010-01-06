@@ -6,6 +6,8 @@ class Course < ActiveRecord::Base
   has_many :course_memberships, :dependent => :destroy
   has_many :terms, :through => :course_memberships
   
+  association_attributes :course_requirements
+  
   # Returns a description to be shown when the course is
   # the conflict object. In this case, a message that the
   # course is not offered in the term specified.
@@ -24,6 +26,6 @@ class Course < ActiveRecord::Base
   # current undergrad calendar
   # (year is currently hardcoded)
   def url
-    "http://www.ucalendar.uwaterloo.ca/0910/COURSE/course-%1$s.html#%1$s%2$s" % code.match(/([^ ]+) ([^ ]+)/)[1..-1]
+    AppConfig.source_url_format % code.match(/([^ ]+) ([^ ]+)/)[1..-1]
   end
 end

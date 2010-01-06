@@ -1,8 +1,27 @@
+<% page_title h(@course.code) %>
+
 <%= hidden_field_tag :course_id, @course.id %>
 
-<p><strong><%=h @course.code %></strong><br />
-  <%=h @course.name %></p>
+<p>
+  <strong><%=h @course.code %></strong><br />
+  <%=h @course.name %><br />
+  Offered: <%= @course.offered %>
+</p>
 
-<verbatim><%=h @course.long_description %></verbatim>
+<%= textilize h(@course.long_description) %>
 
 <p>(<%= link_to "source", @course.url %>)</p>
+
+<% unless request.xhr? %>
+  <h3>Course Requirements</h3>
+  
+  <ul>
+    <%= render :partial => @course.course_requirements %>
+  </ul>
+  
+  <p>
+    &laquo; <%= link_to "Back", courses_path %> |
+    <%= link_to "Edit", edit_course_path(@course) %> |
+    <%= link_to "Delete", course_path(@course), :method => :delete, :confirm => "Are you sure?" %>
+  </p>
+<% end %>

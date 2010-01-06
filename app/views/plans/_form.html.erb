@@ -5,7 +5,18 @@
   </p>
   
   <p><strong>Terms:</strong></p>
-  <%= render :partial => "terms/form", :collection => @plan.terms, :as => :term %>
+  
+  <div class="terms">
+    <%= render :partial => "terms/form", :collection => @plan.terms, :as => :term %>
+  </div>
+  
+  <p>
+    <%= link_to "Add Term", "#", :onclick => "$('.term_template>*').clone(true).appendTo('.terms'); return false" %>
+  </p>
   
   <%= submit_tag(@plan.new_record? ? "Create Plan" : "Update Plan") %>
 <% end %>
+
+<div class="term_template template">
+  <%= render :partial => "terms/form", :locals => { :term => @plan.terms.build } %>
+</div>

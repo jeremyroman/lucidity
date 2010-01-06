@@ -12,13 +12,16 @@
                               "/jquery/js/jquery.link-to-dialog.js" %>
     <%= stylesheet_link_tag "/jquery/css/#{AppConfig.jquery_theme}/jquery-ui-1.7.2.custom.css" %>
     
-    <%= stylesheet_link_tag :all %>
+    <%= stylesheet_link_tag "ui" %>
     <%= javascript_include_tag "ui" %>
   </head>
 
   <body>
     <div id="header">
       <h1><%= AppConfig.title %></h1>
+      <p>
+        <%= link_to "Edit Courses", courses_path %>
+      </p>
     </div>
     
     <%= render :partial => 'portlet_bar' %>

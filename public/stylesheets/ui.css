@@ -9,6 +9,10 @@ strong {
 /* this fixes Chrome's horizontal scrollbar issue */
 body { overflow-x:hidden; }
 
+.template {
+	display:none;
+}
+
 /* HEADER */
 
 #header {
@@ -21,6 +25,14 @@ body { overflow-x:hidden; }
 	font:22px "Trebuchet MS";
 	font-weight:bold;
 	margin:0.5em 0 0 0.8em;
+}
+
+#header p {
+	font-size:13px;
+	position:absolute;
+	right:0px;
+	top:0px;
+	margin:1.3em;
 }
 
 /* PORTLETS */

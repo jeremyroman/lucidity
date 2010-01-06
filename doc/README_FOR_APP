@@ -12,8 +12,6 @@ For development installation, you probably want to run:
 The installation of gems may require root privileges, depending on
 your setup. If this is the case, you may wish to run the
 <tt>gems:install</tt> task separately with the necessarily privileges.
-This application currently does not use any extra gems, except
-for testing, so you may not need to run this task at all.
 Installing the <tt>mongrel</tt> gem will make script/server use
 a somewhat better server than WEBrick, though script/server still
 isn't suitable for actual deployment.

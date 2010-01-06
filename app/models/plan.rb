@@ -5,6 +5,8 @@ class Plan < ActiveRecord::Base
   has_many :course_memberships, :through => :terms
   acts_as_list
   
+  association_attributes :terms
+  
   # Returns true if the plan has no internal conflicts
   # (that is, all courses have their prerequisites satisfied),
   # and false otherwise.
@@ -16,19 +18,6 @@ class Plan < ActiveRecord::Base
   # Each element will implement #conflict_description.
   def internal_conflicts
     course_memberships.map(&:conflicts).inject([], &:+)
-  end
-  
-  # Creates terms using supplied attributes.
-  def new_term_attributes=(term_attributes)
-    term_attributes.each { |attribs| terms.build(attribs) }
-  end
-  
-  # Updates terms using supplied attributes.
-  def existing_term_attributes=(term_attributes)
-    term_attributes.each do |id, attribs|
-      term = terms.find(id)
-      term.update_attributes(attribs)
-    end
   end
   
   # the following stuff is mostly for usage in script/console

@@ -32,16 +32,18 @@ class CourseRequirement < ActiveRecord::Base
   # Returns a description of the conflict (that is, that
   # the requirement is not satisfied)
   def conflict_description(style=:long)
+    prefix = (style == :short) ? "" : "#{course.code} "
+    
     if prerequisite? and number == course_group.courses.size
-      "#{course.code} prerequisite: #{course_group}"
+      "#{prefix}prerequisite: #{course_group}"
     elsif prerequisite?
-      "#{course.code} prerequisite: #{number} of #{course_group}"
+      "#{prefix}prerequisite: #{number} of #{course_group}"
     elsif corequisite? and number == course_group.courses.size
-      "#{course.code} corequisite: #{course_group}"
+      "#{prefix}corequisite: #{course_group}"
     elsif corequisite?
-      "#{course.code} corequisite: #{number} of #{course_group}"
+      "#{prefix}corequisite: #{number} of #{course_group}"
     elsif antirequisite?
-      "#{course.code} antirequisite: #{course_group}"
+      "#{prefix}antirequisite: #{course_group}"
       
     # this should never be reached
     #:nocov:
@@ -67,5 +69,19 @@ class CourseRequirement < ActiveRecord::Base
   # and false otehrwise.
   def antirequisite?
     kind == "antireq"
+  end
+  
+  # Returns a string representation of the course group
+  # in a form appropriate for editing.
+  def course_group_string
+    return "" if course_group.nil?
+    course_group.courses.map(&:code).join(", ")
+  end
+  
+  # Applies changes to the string representation of the
+  # course group to the model.
+  def course_group_string=(cgs)
+    build_course_group if course_group.nil?
+    course_group.courses = Course.find_all_by_code(cgs.split(/ *(,|,? and ) */))
   end
 end

@@ -1,0 +1,8 @@
+<% adaptive_fields_for "course", course_requirement do |f| %>
+  <p>
+    <%= f.select :kind, [["prerequisite","prereq"], ["corequisite","coreq"], ["antirequisite","antireq"]] %>:
+    <%= f.text_field :number, :size => 2 %> of
+    <%= f.text_field :course_group_string, :size => 40, :class => "autocomplete_courses" %>
+    [ <%= link_to "&ndash;", "#", :onclick => "$(this).parent().remove(); return false" %> ]
+  </p>
+<% end %>
