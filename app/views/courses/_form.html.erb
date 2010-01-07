@@ -40,9 +40,9 @@
 
 <script type="text/javascript">
   function enableAutocomplete() {
-    $(".autocomplete_courses").autocomplete("/courses/autocomplete", {
+    $(".course_requirements .autocomplete_courses:not(.autocomplete_enabled)").autocomplete("/courses/autocomplete", {
       multiple: true, formatItem: function(row) { return "<strong>"+row[0]+"</strong><br /><small>"+row[1]+"</small>"; }
-    });
+    }).addClass("autocomplete_enabled");
   }
   
   $(enableAutocomplete);
