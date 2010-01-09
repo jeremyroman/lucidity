@@ -1,6 +1,8 @@
 # Services requests that pertain to plans.
 class PlansController < ApplicationController
-  cache_sweeper :course_membership_sweeper, :only => [:reorder]
+  cache_sweeper :course_membership_sweeper
+  cache_sweeper :plan_sweeper
+  cache_sweeper :term_sweeper
   caches_action :endpoints
   
   # Renders a single plan.

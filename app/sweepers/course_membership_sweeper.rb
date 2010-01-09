@@ -3,20 +3,18 @@ class CourseMembershipSweeper < ActionController::Caching::Sweeper
   
   def after_create(course_membership)
     expire_cache(course_membership)
-    expire_endpoints(course_membership.term.plan_id)
   end
   
   def after_update(course_membership)
     expire_cache(course_membership)
-    expire_endpoints(course_membership.term.plan_id) if course_membership.course_id_changed?
   end
   
   def after_destroy(course_membership)
     expire_cache(course_membership)
-    expire_endpoints(course_membership.term.plan_id)
   end
   
   def expire_cache(cm)
+    Rails.logger.debug ">>> #{self.class}#expire_cache"
     expire_fragment(cm.cache_key)
     expire_fragment("terms/#{cm.term_id}") # no need to fetch the model to get its cache key
     
@@ -36,9 +34,13 @@ class CourseMembershipSweeper < ActionController::Caching::Sweeper
         end
       end
     end
+    
+    if cm.course_id_changed? or cm.frozen?
+      expire_endpoints(course_membership.term.plan_id)
+    end
   end
   
-  def expire_endpoints(plan_id)
+  def expire_endpoints(plan_id, controller_override=nil)
     expire_action(:controller => "plans", :action => "endpoints", :id => plan_id)
   end
 end

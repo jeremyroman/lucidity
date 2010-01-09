@@ -1,6 +1,9 @@
 # Services requests which pertains to courses
 # in general.
 class CoursesController < ApplicationController
+  cache_sweeper :course_sweeper
+  cache_sweeper :course_requirement_sweeper
+  
   # Displays information about a given course.
   def show
     @course = Course.find(params[:id])
