@@ -1,7 +1,7 @@
 # Join table between Course and Term.
 class CourseMembership < ActiveRecord::Base
   belongs_to :course
-  belongs_to :term
+  belongs_to :term, :touch => true
   acts_as_list :scope => :term
   
   # Returns true if this course membership is
@@ -19,9 +19,12 @@ class CourseMembership < ActiveRecord::Base
         course.course_requirements.reject { |cr| cr.satisfied?(term, term.plan) }
   end
   
+  caches_method :conflicts unless Rails.env == "test"
+  
   # Key used to store the view fragment
   # (centralized to avoid errors in duplication)
-  def cache_key
-    "course_memberships/#{id}-#{course_id}"
-  end
+  # TODO: Remove this unnecessary method.
+  # def cache_key
+  #   "course_memberships/#{id}-#{course_id}"
+  # end
 end

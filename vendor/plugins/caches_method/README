@@ -1,0 +1,17 @@
+CachesMethod
+============
+
+Caches the return value of a method in the Rails cache.
+
+Example
+=======
+
+class Company < ActiveRecord::Base
+	def expensive_report(arg)
+		...
+	end
+	
+	caches_method :expensive_report
+end
+
+Copyright (c) 2010 Jeremy Roman, released under the MIT license

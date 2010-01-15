@@ -1,7 +1,7 @@
 # Specifies requirements (e.g. prerequisites) for entry
 # into a course.
 class CourseRequirement < ActiveRecord::Base
-  belongs_to :course
+  belongs_to :course, :touch => true
   belongs_to :course_group, :dependent => :destroy
   
   # Returns true is the requirement is satisfied by the plan given

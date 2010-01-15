@@ -2,13 +2,14 @@
 class Term < ActiveRecord::Base
   has_many :course_memberships, :dependent => :destroy, :order => "position"
   has_many :courses, :through => :course_memberships
-  belongs_to :plan
+  belongs_to :plan, :touch => true
   
   # Key used to store the view fragment
   # (centralized to avoid errors in duplication)
-  def cache_key
-    "terms/#{id}"
-  end
+  # TODO: Remove this unnecessary method.
+  # def cache_key
+  #   "terms/#{id}"
+  # end
   
   #:nocov:
   

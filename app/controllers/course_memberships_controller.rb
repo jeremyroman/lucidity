@@ -3,6 +3,7 @@
 # PlansController.
 class CourseMembershipsController < ApplicationController
   cache_sweeper :course_membership_sweeper
+  cache_sweeper :term_sweeper
   
   # Removes a course membership.
   def destroy
@@ -25,6 +26,11 @@ class CourseMembershipsController < ApplicationController
   def reorder
     @plan = Plan.find(params[:plan_id])
     
+    # preload course memberships into a Hash
+    # (this appears to improve performance)
+    course_memberships = {}
+    @plan.course_memberships.each { |cm| course_memberships[cm.id] = cm }
+    
     params[:terms].each do |term_data|
       term = @plan.terms.find(term_data[:term_id])
       term_data[:memberships] ||= []
@@ -33,7 +39,7 @@ class CourseMembershipsController < ApplicationController
         if mem[:mid] =~ /^new/
           membership = Course.find(mem[:cid]).course_memberships.build
         else
-          membership = @plan.course_memberships.find(mem[:mid])
+          membership = course_memberships[mem[:mid].to_i]
         end
         
         membership.term = term

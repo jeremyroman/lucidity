@@ -1,0 +1,14 @@
+CacheKeyWas
+===========
+
+Provides a "dirty" counterpart to cache_key which calls updated_at_was
+instead of updated_at. This is useful for expiring old caches.
+
+
+Example
+=======
+
+expire_fragment(model.cache_key_was)
+
+
+Copyright (c) 2010 Jeremy Roman, released under the MIT license

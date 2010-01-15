@@ -1,4 +1,4 @@
-<% cache(course_membership.cache_key) do %>
+<% cache course_membership do %>
 
 <div class="term-course<%= " ui-state-error" unless course_membership.satisfied? %>">
   <%= hidden_field_tag "terms[][memberships][][cid]", course_membership.course.id %>

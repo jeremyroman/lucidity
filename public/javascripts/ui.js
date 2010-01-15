@@ -127,7 +127,7 @@ Waterloonatic = {
 
 		// pushes updated order to the server and asks for update
 		// (timeout used since multiple events may be triggered)
-		$.doTimeout('push-and-reload-plan-'+plan_id, 50, function() {
+		$.doTimeout('push-and-reload-plan-'+plan_id, 25, function() {
 			serialized = $(".ui-tabs-panel:not(.ui-tabs-hide) input[name^=terms]").serialize();
 			$.post("/plans/"+plan_id+"/course_memberships/reorder", serialized, Waterloonatic.reload);
 		});

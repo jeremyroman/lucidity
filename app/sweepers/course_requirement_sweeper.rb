@@ -10,10 +10,6 @@ class CourseRequirementSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache(cr)
-    CourseMembershipSweeper.instance.wrap(controller) do
-      cr.course.course_memberships.each do |cm|
-        CourseMembershipSweeper.instance.expire_cache(cm)
-      end
-    end
+    cr.course.course_memberships.each(&:touch)
   end
 end

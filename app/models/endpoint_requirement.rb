@@ -1,7 +1,7 @@
 # Specifies requirements (e.g. prerequisites) for completion
 # of an endpoint.
 class EndpointRequirement < ActiveRecord::Base
-  belongs_to :endpoint
+  belongs_to :endpoint, :touch => true
   belongs_to :course_group, :dependent => :destroy
   
   # Returns true is the requirement is satisfied by the plan given

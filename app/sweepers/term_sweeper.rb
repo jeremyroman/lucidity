@@ -10,6 +10,7 @@ class TermSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache(term)
+    expire_fragment(term.cache_key_was)
     expire_fragment(term.cache_key)
   end
 end
