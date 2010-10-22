@@ -1,5 +1,4 @@
-coverage
-.rake_tasks
-public/javascripts/jquery.js
-public/stylesheets/all.css
-tmp
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
