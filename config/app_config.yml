@@ -1,4 +1,0 @@
-common:
-  title: Waterloonatic
-  jquery_theme: ui-lightness
-  source_url_format: http://www.ucalendar.uwaterloo.ca/0910/COURSE/course-%1$s.html#%1$s%2$s
