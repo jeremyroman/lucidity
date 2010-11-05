@@ -1,0 +1,109 @@
+body {
+	background-color:#abc;
+	font:11px Verdana;
+	-webkit-text-size-adjust:none;
+	margin-top:48px;
+}
+
+header {
+  display:block;
+  margin:0px -8px 8px;
+  position:fixed;
+  left:0; right:0;
+  top:0;
+  padding:4px 20px;
+  background-color:#789;
+  border-bottom:1px solid #def;
+  color:#fff;
+}
+
+header h1 {
+  display:inline;
+  padding:0;
+  font:28px "Trebuchet MS" Verdana;
+  color:#fff;
+  text-shadow:#fff 0px 0px 8px;
+}
+
+header .user {
+  float:right;
+}
+
+header a {
+  color:#eee;
+}
+
+.term {
+	width:22%; min-width:10em;
+	border:1px solid #aaa;
+	padding:2px 2px 4px;
+	margin:4px;
+	float:left;
+	border-radius:8px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	cursor:default;
+	min-height:4em;
+	box-shadow:2px 2px 2px #777;
+	-moz-box-shadow:2px 2px 2px #777;
+	-webkit-box-shadow:2px 2px 2px #777;
+}
+
+.term h3 {
+	font:13px Verdana;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	color:#fff; padding:4px; margin:1px;
+}
+
+.fall { background-color:#fc9; }
+.fall h3 { background-color:#e80; }
+.winter { background-color:#def;}
+.winter h3 { background-color:#48c;}
+.spring { background-color:#cfc;}
+.spring h3 { background-color:#5b5; }
+
+.term:nth-child(3n+1) { clear:both; }
+.term:first-child { clear:none; }
+
+.course {
+	border:1px solid #ddd;
+	margin:0px 2px -1px; padding:2px;
+	background-color:#fff;
+	cursor:move;
+	color:#000;
+	overflow:hidden; text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.course strong {display:block; float:left; width:8em;}
+
+.search {
+	background-color:#333;
+	border-radius:8px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	color:#fff;
+	float:right;
+	width:22%;
+	min-width:10em;
+	padding:2px 2px 6px;
+	margin:4px;
+}
+.search form { padding:4px; }
+.search .course { background-color:#666; color:#fff; border:1px solid #888;}
+.search input {
+  border-radius:20px;
+  -moz-border-radius:20px;
+  -webkit-border-radius:20px;
+  border:1px solid #888;
+  color:#fff;
+  padding:4px 8px 0px;
+  background-color:#666;
+  width:90%;
+  outline:none;
+}
+
+@media only screen and (max-width:480px), screen and (max-device-width:480px) {
+	.search, .term { float:none; width:95%; }
+}

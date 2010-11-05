@@ -1,4 +1,7 @@
 Lucidity::Application.routes.draw do
+  root :to => "main#index"
+  match 'logout' => 'main#logout'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
