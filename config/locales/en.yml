@@ -2,4 +2,6 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  disclaimer: |
+    Disclaimer: You are responsible for ensuring that you meet all applicable course and degree requirements.
+    Lucidity is a planning tool only — its developers are in no way responsible for your academic success.

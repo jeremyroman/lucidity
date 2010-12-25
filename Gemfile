@@ -1,14 +1,25 @@
 source 'http://rubygems.org'
+source 'http://gems.github.com'
 
 gem 'rails', '3.0.1'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'jquery-rails'
 
+gem "haml"
+gem "bluecloth"
+gem "responders"
+gem "rubycas-client"
+
 group :test, :development do
   gem "rspec-rails", ">= 2.0.0"
+  gem "shoulda"
 end
 
-gem "thin"
+group :development do
+  gem "thin"
+  gem "yard"
+  gem "rcov"
+end
 
 # Deploy with Capistrano
 # gem 'capistrano'
