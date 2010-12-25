@@ -1,0 +1,8 @@
+.content
+  %h3 Edit Plan
+  = render :partial => 'form', :object => @plan
+
+%p.links<
+  = link_to "All Plans", root_path
+  = link_to "Show", @plan
+  = link_to "Delete", @plan, :method => :delete

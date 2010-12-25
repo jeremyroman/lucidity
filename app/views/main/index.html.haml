@@ -1,0 +1,29 @@
+.content
+  %h3 Welcome to Lucidity
+  
+  %h4 Plans
+  - unless current_user.plans.empty?
+    %table
+      %thead
+        %tr
+          %th Plan
+          %th Actions
+      %tbody
+        - for plan in current_user.plans
+          %tr
+            %td= link_to plan.name, plan
+            %td
+              %p.links<
+                = link_to "Edit", [:edit, plan]
+                = link_to "Delete", plan, :method => :delete, :confirm => "Are you sure?"
+                = link_to "Duplicate", [:duplicate, plan]
+  - else
+    %p You currently have no plans.
+  
+  %p.links<
+    = link_to "New Plan", new_plan_path
+  
+  - if current_user.admin?
+    %h4 Admin
+    %ul
+      %li= link_to "Catalogues", catalogues_path

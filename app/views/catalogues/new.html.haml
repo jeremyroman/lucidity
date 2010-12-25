@@ -1,0 +1,6 @@
+.content
+  %h3 New Catalogue
+  = render :partial => 'form', :object => @catalogue
+
+%p.links<
+  = link_to "All Catalogues", catalogues_path

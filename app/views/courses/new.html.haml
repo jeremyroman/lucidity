@@ -1,0 +1,6 @@
+.content
+  %h3 New Course
+  = render :partial => 'form', :object => @course
+
+%p.links<
+  = link_to "All Courses", [@catalogue, :courses]

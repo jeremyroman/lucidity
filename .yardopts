@@ -1,0 +1,9 @@
+--output-dir ./doc/app
+--private --protected
+--hide-void-return
+--type-name-tag belongs_to:"Belongs to"
+--type-name-tag has_many:"Has many"
+--type-name-tag has_and_belongs_to_many:"Has and belongs to many"
+--load ./lib/yardoc/active_record_handler.rb
+--load ./lib/yardoc/action_controller_handler.rb
+app/**/*.rb lib/*.rb

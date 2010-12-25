@@ -1,0 +1,8 @@
+.content
+  %h3 Edit Course
+  = render :partial => 'form', :object => @course
+
+%p.links<
+  = link_to "All Courses", [@course.catalogue, :courses]
+  = link_to "Show", @course
+  = link_to "Delete", @course, :method => :delete

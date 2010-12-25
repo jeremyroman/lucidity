@@ -1,0 +1,16 @@
+.content
+  %h3= @course.code
+  %p
+    = @course.name
+    %br
+    = "Offered: #{@course.offered}"
+  
+  :markdown
+    #{@course.description}
+  
+  %p Requirements: #{format_requirement(@course.requirements_data)[1..-2]}
+  
+%p.links<
+  = link_to "All Courses", [@course.catalogue, :courses]
+  = link_to "Edit", [:edit, @course]
+  = link_to "Delete", @course, :method => :delete

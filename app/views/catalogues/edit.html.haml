@@ -1,0 +1,8 @@
+.content
+  %h3 Edit Catalogue
+  = render :partial => 'form', :object => @catalogue
+
+%p.links<
+  = link_to "All Catalogues", catalogues_path
+  = link_to "Show", @catalogues
+  = link_to "Delete", @catalogue, :method => :delete

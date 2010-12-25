@@ -1,0 +1,5 @@
+%p.subform
+  = form.select :season, [["Fall", :fall], ["Winter", :winter], ["Spring", :spring]]
+  = form.text_field :year, :size => 4
+  = form.hidden_field :_destroy
+  = link_to_function "Remove", "removeSubform(this)"

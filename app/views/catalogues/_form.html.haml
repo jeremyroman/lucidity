@@ -1,0 +1,7 @@
+= render :partial => 'common/errors', :object => form.errors
+= form_for @catalogue do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.submit

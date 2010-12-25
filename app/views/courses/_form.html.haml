@@ -1,0 +1,19 @@
+= render :partial => 'common/errors', :object => form.errors
+= form_for (@course.new_record? && [@catalogue, @course]) || @course do |f|
+  %p
+    = f.label :code
+    = f.text_field :code
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :offered
+    = f.text_field :offered, :size => 3
+  %p
+    = f.label :description
+    = f.text_area :description, :rows => 10, :cols => 80
+  %p
+    = f.label :requirements
+    = f.text_area :requirements, :rows => 10, :cols => 80
+  %p
+    = f.submit

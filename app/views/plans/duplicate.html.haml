@@ -1,0 +1,9 @@
+.content
+  %h3 Duplicate Plan
+  = render :partial => 'common/errors', :object => @plan.errors
+  = form_for @plan, :url => [:duplicate, @plan], :html => {:method => :post} do |f|
+    %p
+      = f.label :name
+      = f.text_field :name
+    %p
+      = f.submit "Duplicate"

@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title Lucidity #{" - "+title if title}
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = javascript_include_tag 'lucidity'
+    = csrf_meta_tag
+    %meta(name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;")
+    %meta(name="apple-mobile-web-app-capable" content="yes")
+    %link(rel="apple-touch-startup-image" href="/startup-320x460.png")
+  
+  %body
+    %header
+      %h1= link_to "Lucidity", root_path
+      %p.user
+        Logged in as:
+        %strong= current_user.userid
+        = link_to "Logout", logout_path
+    
+    - for key in flash.keys
+      %p(class="flash #{key}")= flash[key]
+    
+    = yield

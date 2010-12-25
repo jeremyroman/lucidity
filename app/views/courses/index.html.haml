@@ -1,0 +1,16 @@
+.content
+  %h3 Courses in #{@catalogue.name}
+  %table
+    %thead
+      %tr
+        %th Code
+        %th Name
+    %tbody
+      - for course in @courses
+        %tr
+          %td= link_to course.code, course
+          %td= course.name
+
+%p.links<
+  = link_to "Back to Catalogues", catalogues_path
+  = link_to "New Course", new_catalogue_course_path(@catalogue)

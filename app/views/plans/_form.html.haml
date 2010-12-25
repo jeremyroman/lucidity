@@ -1,0 +1,19 @@
+= render :partial => 'common/errors', :object => form.errors
+= form_for form do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  
+  %p.subform
+    = f.label :terms
+    
+    - if form.new_record?
+      = f.fields_for :term_spawn do |f|
+        = f.text_field :num_terms, :size => 2, :value => 11
+        terms beginning in Fall
+        = f.select :first_year, options_for_select(((Time.now.year-6)..(Time.now.year+1)).map { |y| [y,y] })
+    - else
+      - f.fields_for :terms do |f|
+        = render :partial => 'terms/form', :object => f
+  
+  %p= f.submit
