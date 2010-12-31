@@ -1,0 +1,4 @@
+- for course in @courses
+  .course(data-id="#{course.id}")
+    %strong= course.code
+    = course.name

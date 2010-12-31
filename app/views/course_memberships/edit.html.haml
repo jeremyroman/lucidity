@@ -1,0 +1,23 @@
+.content
+  %h3 Edit Course Membership
+  = form_for @course_membership, :url => course_membership_path(@course_membership, :format => :json), :method => :put do |f|
+    %p
+      = f.label :course
+      = link_to @course_membership.course.code, @course_membership.course
+      \: #{@course_membership.course.name}
+    
+    %p
+      = f.label :term
+      #{@course_membership.term.name}
+    
+    %p= f.label :conflicts
+    %ul
+      - for conflict in @course_membership.conflicts
+        %li= conflict
+    
+    %p
+      = f.label :override
+      = f.check_box :override
+      Override requirement verification
+      
+    %p= f.submit

@@ -10,6 +10,9 @@ class PlansController < ApplicationController
   # Display a particular plan
   def show
     @plan = current_user.plans.find(params[:id])
+    t1 = Time.now
+    @conflicts = @plan.conflicts.map { |c| c.delete(:message); c }
+    Rails.logger.debug("\033[43m\033[1mConflicts computed in #{Time.now-t1} seconds.\033[0m")
     respond_with(@plan)
   end
   

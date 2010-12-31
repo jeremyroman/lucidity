@@ -5,6 +5,10 @@ body {
   margin-top:48px;
 }
 
+a {
+  color:#367;
+}
+
 header {
   display:block;
   margin:0px -8px 8px;
@@ -87,21 +91,23 @@ header h1 a {
   display:block;
   float:left;
   width:7.5em;
-/*  margin:-2px;
-  padding:2px;
-  background-image:url(/images/sciblue.png);
-  background-repeat:repeat-y;*/
-}
-.course.math strong {
-/*  background-image:url(/images/mathpink.png);*/
 }
 
-.search {
+.course.conflict {
+  border:1px solid #700;
+  background-color:#b00;
+  color:#edd;
+}
+
+.bubbles {
+  float:right;
   width:22%; min-width:10em; max-width:25em;
+}
+
+.bubble {
   border:1px solid #aaa;
   padding:2px 2px 8px;
   margin:4px;
-  float:right;
   border-radius:8px;
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
@@ -112,7 +118,7 @@ header h1 a {
   -webkit-box-shadow:2px 2px 2px #777;
   background-color:rgb(230,230,230);
 }
-.search h3 {
+.bubble h3 {
   font:13px Verdana;
   border-radius:4px;
   -moz-border-radius:4px;
@@ -120,6 +126,7 @@ header h1 a {
   color:#fff; padding:3px 4px 4px; margin:1px;
   background-color:#567;
 }
+.trash { min-height:2em;}
 
 .search form { padding:4px; }
 .search input {
@@ -154,10 +161,6 @@ td,th {
   font-weight:normal;
   padding:3px 8px;
   border-bottom:1px solid #ccc;
-}
-
-table a {
-  color:#367;
 }
 
 .content {
@@ -237,6 +240,11 @@ input,textarea { font-size:13px }
 .field_with_errors input { border:2px solid #f00; }
 
 @media only screen and (max-width:480px), screen and (max-device-width:480px) {
-  .search, .term { float:none; width:95%; }
+  .bubbles { float:none; width:100%; }
+  .bubble { width:100%; }
+  .term { float:none; width:95%; }
   .courses { float:none; width:100%;}
 }
+
+#simplemodal-overlay {background-color:#000;}
+#simplemodal-container {background-color:#eee; border:8px solid #444; padding:12px; }

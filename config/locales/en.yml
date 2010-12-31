@@ -5,3 +5,8 @@ en:
   disclaimer: |
     Disclaimer: You are responsible for ensuring that you meet all applicable course and degree requirements.
     Lucidity is a planning tool only — its developers are in no way responsible for your academic success.
+  
+  not_offered: Course not offered.
+  
+  requirement_not_satisfied: "Requirement not satisfied: %{requirement}"
+  

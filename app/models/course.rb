@@ -26,4 +26,8 @@ class Course < ActiveRecord::Base
   def requirements_data=(new_requirements)
     requirements = new_requirements.to_json
   end
+  
+  def offered?(season)
+    offered.include?(season[0..0].upcase)
+  end
 end

@@ -1,23 +1,24 @@
 - title @plan.name
 
-.search
-  %h3 Search
-  %form
-    %input(value="Linear Algebra")
+.bubbles
+  .search.bubble
+    %h3 Search
+    %form
+      %input
   
-  - for course in Course.all
-    .course(data-id="#{course.id}")
-      %strong= course.code
-      = course.name
+    .results
+
+  .bubble
+    %h3 Trash
+    .trash
 
 .courses
   - for term in @plan.terms
     %div(class="#{term.season} term" data-id="#{term.id}")
       %h3= term.name
-      - for course in term.courses
-        .course
-          %strong= course.code
-          = course.name
-
+      - for cm in term.course_memberships.sort_by { |cm| cm.course.code }
+        .course(data-id="#{cm.course.id}" class="#{'conflict' if @conflicts.include?({ :course_id => cm.course.id, :term_id => cm.term.id })}")
+          %strong= cm.course.code
+          = cm.course.name
 
 %p(style="clear:both")

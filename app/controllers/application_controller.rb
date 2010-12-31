@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html, :xml, :json
   protect_from_forgery
+  layout proc { |c| c.request.xhr? ? false : 'application' }
   
   protected
   

@@ -45,4 +45,28 @@ class Plan < ActiveRecord::Base
     new_plan.save!
     new_plan
   end
+  
+  def conflicts
+    t1 = Time.now
+    result = []
+    rc = RequirementChecker.new(self)
+    Rails.logger.debug("\033[43m\033[1mRequirementChecker.new: #{Time.now-t1} seconds\033[0m")
+    
+    terms.find(:all, :include => :course_memberships).each do |term|
+      rc.term = term
+      
+      term.course_memberships.find(:all, :include => :course).each do |cm|
+        t1 = Time.now
+        rc.course = cm.course
+        unless cm.override
+          result += rc.check.map do |conflict|
+            { :course_id => cm.course_id, :term_id => cm.term_id, :message => conflict.message }
+          end
+        end
+        Rails.logger.debug("\033[43m\033[1m#{cm.course.code}: #{Time.now-t1} seconds\033[0m")
+      end
+    end
+    
+    result
+  end
 end

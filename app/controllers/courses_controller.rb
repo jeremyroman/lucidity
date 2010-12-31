@@ -54,4 +54,16 @@ class CoursesController < ApplicationController
       format.html { redirect_to [@course.catalogue, :courses] }
     end
   end
+  
+  def search
+    conditions = ["code LIKE ? || '%' OR name LIKE '%' || ? || '%'", params[:q], params[:q]]
+    count = Course.count(:conditions => conditions)
+    
+    if count > 20
+      render :text => ""
+    else
+      @courses = Course.find(:all, :conditions => conditions)
+      render :layout => false
+    end
+  end
 end
