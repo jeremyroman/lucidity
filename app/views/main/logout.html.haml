@@ -1,0 +1,4 @@
+.content
+  %h3 Logged out
+  
+  %p You have been logged out of Lucidity. However, if your CAS session is still active, you will be automatically signed in when you return. You may wish to #{link_to "sign out of CAS", Devise.cas_client.logout_url} as well.

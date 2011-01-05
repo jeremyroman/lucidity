@@ -4,15 +4,18 @@
     %thead
       %tr
         %th Catalogue
-        %th Actions
+        - if can? :manage, @catalogue
+          %th Actions
     %tbody
       - for catalogue in @catalogues
         %tr
           %td= link_to catalogue.name, catalogue
-          %td
-            %p.links<
-              = link_to "Edit", [:edit, catalogue]
-              = link_to "Delete", catalogue, :method => :delete, :confirm => "Are you sure?"
+          - if can? :manage, @catalogue
+            %td
+              %p.links<
+                = link_to "Edit", [:edit, catalogue]
+                = link_to "Delete", catalogue, :method => :delete, :confirm => "Are you sure?"
 
-%p.links
-  = link_to "New Catalogue", new_catalogue_path
+- if can? :manage, Catalogue
+  %p.links
+    = link_to "New Catalogue", new_catalogue_path

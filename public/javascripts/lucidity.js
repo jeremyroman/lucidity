@@ -10,14 +10,23 @@ Lucidity = {
       // create a new course membership when a course is received
       receive: function(event, ui) {
         me = $(this);
-        term_id = $(this).attr("data-id");
-        course_id = $(event.toElement).closest(".course").attr("data-id");
+        term_id = $(this).attr("data-term-id");
+        cm_element = $(event.toElement).closest(".course");
+        course_id = cm_element.attr("data-course-id");
+        new_elem = $(this).find(".course[data-course-id='"+course_id+"']:not([data-cm-id])");
+        if (new_elem.length == 0) new_elem = cm_element;
+        console.log(new_elem);
+        console.log({ 'course_membership[course_id]': course_id });
         $.ajax({
           type: 'POST',
-          url: '/course_memberships.json',
+          url: '/terms/' + term_id + '/course_memberships.json',
           data: { 'course_membership[term_id]': term_id, 'course_membership[course_id]': course_id },
           success: function(data, status, xhr) {
-            console.log([data, status, xhr]);
+            if (new_elem.length > 0)
+              
+            new_elem.attr("data-cm-id", data.course_membership.course_membership.id);
+            console.log("CM ID: " + new_elem.attr("data-cm-id"));
+            console.log(event, ui);
             Lucidity.processConflicts(data.conflicts);
           },
           error: function(xhr, status, err) { alert("An error has occurred."); }
@@ -26,15 +35,15 @@ Lucidity = {
       
       // destroy a course membership when a course is removed
       remove: function(event, ui) {
-        term_id = $(this).attr("data-id");
-        course_id = $(event.toElement).closest(".course").attr("data-id");
-        console.log(["remove", term_id, course_id, event]);
+        cm_id = $(event.toElement).closest(".course").attr("data-cm-id");
+        if(cm_id === undefined) return;
+        term_id = $(this).attr("data-term-id");
+        
         $.ajax({
           type: 'POST',
-          url: '/course_memberships.json',
-          data: { '_method':'DELETE', 'term_id': term_id, 'course_id': course_id },
+          url: '/terms/' + term_id + '/course_memberships/' + cm_id + '.json',
+          data: { '_method':'DELETE' },
           success: function(data, status, xhr) {
-            console.log([data, status, xhr]);
             Lucidity.processConflicts(data.conflicts);
           },
           error: function(xhr, status, err) { if (xhr.status != 200) alert("An error has occurred. " + xhr.status); }
@@ -51,25 +60,22 @@ Lucidity = {
     });
     
     $(".search form").submit(Lucidity.performSearch);
-    //$(".search input").keyup(Lucidity.performSearch);
     
-    $(".term .course").dblclick(function() {
-      course_id = $(this).attr("data-id");
-      term_id = $(this).closest(".term").attr("data-id");
-      console.log([course_id, term_id]);
-      Lucidity.dialog.show('/course_memberships/edit?course_id=' + course_id + '&term_id=' + term_id);
+    $(".term .course").live("dblclick", function() {
+      cm_id = $(this).attr("data-cm-id");
+      term_id = $(this).closest(".term").attr("data-term-id");
+      Lucidity.dialog.show('/terms/' + term_id + '/course_memberships/' + cm_id + '/edit');
     });
   },
   
   processConflicts: function(conflicts) {
     noconflict = $(".course:not(.conflict)");
     conflicted = $(".course.conflict");
-    $(".course").removeClass("conflict").each(function() { $(this).attr("title", this.innerText); });;
+    $(".course").removeClass("conflict");
     
     for (i in conflicts) {
       conflict = conflicts[i];
-      element = $(".term[data-id=" + conflict.term_id + "] .course[data-id=" + conflict.course_id + "]");
-      element.attr("title", element.attr("title") + "\n" + conflict.message)
+      element = $(".term[data-term-id=" + conflict.term_id + "] .course[data-course-id=" + conflict.course_id + "]");
       element.addClass("conflict");
     }
     
@@ -87,7 +93,9 @@ Lucidity = {
     
     $(".search .results").load("/catalogues/1/courses/search?" + $.param({q:query}), undefined,
       function() {
-        $(".search .course").draggable({ helper:'clone', connectToSortable:'.term' }).disableSelection();
+        $(".search .course").draggable({ helper:'clone', connectToSortable:'.term' })
+                            .disableSelection()
+                            .each(function() { $(this).attr("title", this.innerText); });
       });
     return false;
   },
@@ -105,7 +113,6 @@ Lucidity = {
                 data: $(this).serialize(),
                 dataType: "json",
                 success: function(data) {
-                  console.log(data);
                   if (typeof(data.conflicts) == 'object') Lucidity.processConflicts(data.conflicts)
                   Lucidity.dialog.hide();
                 }

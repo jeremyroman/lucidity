@@ -1,6 +1,6 @@
 .content
   %h3 Edit Course Membership
-  = form_for @course_membership, :url => course_membership_path(@course_membership, :format => :json), :method => :put do |f|
+  = form_for [@term, @course_membership], :method => :put do |f|
     %p
       = f.label :course
       = link_to @course_membership.course.code, @course_membership.course

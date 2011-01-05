@@ -14,10 +14,10 @@
 
 .courses
   - for term in @plan.terms
-    %div(class="#{term.season} term" data-id="#{term.id}")
+    %div(class="#{term.season} term" data-term-id="#{term.id}")
       %h3= term.name
       - for cm in term.course_memberships.sort_by { |cm| cm.course.code }
-        .course(data-id="#{cm.course.id}" class="#{'conflict' if @conflicts.include?({ :course_id => cm.course.id, :term_id => cm.term.id })}")
+        .course(data-course-id="#{cm.course.id}" data-cm-id="#{cm.id}" class="#{'conflict' if @conflicts.include?({ :course_id => cm.course.id, :term_id => cm.term.id })}")
           %strong= cm.course.code
           = cm.course.name
 

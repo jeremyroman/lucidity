@@ -1,6 +1,12 @@
 Lucidity::Application.routes.draw do
-  root :to => "main#index"
-  match 'logout' => 'main#logout'
+  root :to => 'main#index'
+  
+  devise_for :users do
+    get 'logout' => 'main#logout'
+    get 'login' => 'main#index'
+  end
+  
+  match 'admin/switch_user' => 'admin#switch_user', :as => 'switch_user'
   
   resources :plans do
     member do
@@ -9,17 +15,13 @@ Lucidity::Application.routes.draw do
     end
   end
   
-  resources :catalogues do
-    resources :courses, :only => [:index, :new, :create] do
+  resources :catalogues, :shallow => true do
+    resources :courses do
       collection { get :search }
     end
   end
   
-  resources :courses, :except => [:index, :new, :create]
-  resources :course_memberships, :only => [:show, :create, :update] do
-    collection do
-      delete :destroy
-      get :edit
-    end
+  resources :terms, :only => [] do
+    resources :course_memberships, :except => [:index, :new]
   end
 end

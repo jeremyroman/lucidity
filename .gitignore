@@ -5,5 +5,4 @@ tmp/**/*
 doc
 coverage
 .yardoc
-Gemfile.lock
 .DS_Store

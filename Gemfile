@@ -8,7 +8,10 @@ gem 'jquery-rails'
 gem "haml"
 gem "bluecloth"
 gem "responders"
-gem "rubycas-client"
+
+gem "devise", ">= 1.1.1"
+gem "devise_cas_authenticatable"
+gem "cancan"
 
 group :test, :development do
   gem "rspec-rails", ">= 2.0.0"

@@ -41,7 +41,11 @@ class Plan < ActiveRecord::Base
   # @return (Plan) new plan
   def duplicate
     new_plan = clone
-    new_plan.terms = terms.map(&:clone)
+    new_plan.terms = terms.map do |t|
+      new_term = t.clone
+      new_term.course_memberships = t.course_memberships.map(&:clone)
+      new_term
+    end
     new_plan.save!
     new_plan
   end

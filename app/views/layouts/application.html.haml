@@ -15,9 +15,13 @@
     %header
       %h1= link_to "Lucidity", root_path
       %p.user
-        Logged in as:
-        %strong= current_user.userid
-        = link_to "Logout", logout_path
+        - if user_signed_in?
+          Logged in as:
+          %strong= current_user.username
+          = link_to "Logout", logout_path
+        - else
+          Not signed in.
+          = link_to "Login", login_path
     
     - for key in flash.keys
       %p(class="flash #{key}")= flash[key]

@@ -13,4 +13,4 @@
 
 %p.links<
   = link_to "Back to Catalogues", catalogues_path
-  = link_to "New Course", new_catalogue_course_path(@catalogue)
+  = link_to "New Course", new_catalogue_course_path(@catalogue) if can? :manage, @catalogue

@@ -1,15 +1,15 @@
 # Handles CRUD actions related to plans
 
 class PlansController < ApplicationController
+  load_and_authorize_resource
+  
   # List the current user's plans
   def index
-    @plans = current_user.plans
     respond_with(@plans)
   end
   
   # Display a particular plan
   def show
-    @plan = current_user.plans.find(params[:id])
     t1 = Time.now
     @conflicts = @plan.conflicts.map { |c| c.delete(:message); c }
     Rails.logger.debug("\033[43m\033[1mConflicts computed in #{Time.now-t1} seconds.\033[0m")
@@ -18,13 +18,11 @@ class PlansController < ApplicationController
   
   # Prepare a new plan and display the form
   def new
-    @plan = current_user.plans.build
     respond_with(@plan)
   end
   
   # Validate and save a new plan
   def create
-    @plan = current_user.plans.build(params[:plan])
     @plan.save
     
     respond_with(@plan)
@@ -32,13 +30,11 @@ class PlansController < ApplicationController
   
   # Display a form for editing a plan
   def edit
-    @plan = current_user.plans.find(params[:id])
     respond_with(@plan)
   end
   
   # Validate and save changes to a plan
   def update
-    @plan = current_user.plans.find(params[:id])
     @plan.update_attributes(params[:plan])
     
     respond_with(@plan)
@@ -46,7 +42,6 @@ class PlansController < ApplicationController
   
   # Destroy a plan
   def destroy
-    @plan = current_user.plans.find(params[:id])
     @plan.destroy
     
     respond_with(@plan) do |format|
@@ -56,8 +51,6 @@ class PlansController < ApplicationController
   
   # Duplicate a plan (and redirect to the new one once done)
   def duplicate
-    @plan = current_user.plans.find(params[:id])
-    
     if request.post?
       @plan = @plan.duplicate
       @plan.update_attributes(params[:plan])

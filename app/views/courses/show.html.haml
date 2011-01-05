@@ -17,5 +17,5 @@
   
 %p.links<
   = link_to "All Courses", [@course.catalogue, :courses]
-  = link_to "Edit", [:edit, @course]
-  = link_to "Delete", @course, :method => :delete
+  = link_to "Edit", [:edit, @course] if can? :manage, @course
+  = link_to "Delete", @course, :method => :delete if can? :manage, @course
