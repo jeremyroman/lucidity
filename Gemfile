@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 source 'http://gems.github.com'
 
 gem 'rails', '3.0.1'
-gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'jquery-rails'
 
 gem "haml"
@@ -16,16 +15,22 @@ gem "cancan"
 group :test, :development do
   gem "rspec-rails", ">= 2.0.0"
   gem "shoulda"
+  gem "sqlite3-ruby", :require => 'sqlite3'
 end
 
 group :development do
   gem "thin"
   gem "yard"
   gem "rcov"
+  gem "capistrano"
+end
+
+group :production do
+  gem "mysql"
 end
 
 # Deploy with Capistrano
-# gem 'capistrano'
+
 
 # To use debugger
 # gem 'ruby-debug'

@@ -35,6 +35,12 @@ GEM
     bluecloth (2.0.9)
     builder (2.1.2)
     cancan (1.4.1)
+    capistrano (2.5.19)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.0.0)
     daemons (1.1.0)
     devise (1.1.5)
       bcrypt-ruby (~> 2.1.2)
@@ -47,6 +53,7 @@ GEM
       abstract (>= 1.0.0)
     eventmachine (0.12.10)
     haml (3.0.25)
+    highline (1.6.1)
     i18n (0.4.2)
     jquery-rails (0.2.6)
       rails (~> 3.0)
@@ -57,6 +64,14 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mysql (2.8.1)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.0.23)
+    net-ssh-gateway (1.0.1)
+      net-ssh (>= 1.99.1)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -114,10 +129,12 @@ PLATFORMS
 DEPENDENCIES
   bluecloth
   cancan
+  capistrano
   devise (>= 1.1.1)
   devise_cas_authenticatable
   haml
   jquery-rails
+  mysql
   rails (= 3.0.1)
   rcov
   responders
