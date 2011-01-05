@@ -50,7 +50,7 @@ class CoursesController < ApplicationController
   end
   
   def search
-    conditions = ["code LIKE ? || '%' OR name LIKE '%' || ? || '%'", params[:q], params[:q]]
+    conditions = ["code LIKE ? OR name LIKE ?", "#{params[:q]}%", "%#{params[:q]}%"]
     count = Course.count(:conditions => conditions)
     
     if count > 20
