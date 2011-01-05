@@ -53,3 +53,4 @@ end
 
 after 'deploy:update_code', 'bundler:symlink'
 after 'deploy:update_code', 'bundler:install'
+after 'deploy:update_code', 'deploy:migrate'
