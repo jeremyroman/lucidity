@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101231201900) do
+ActiveRecord::Schema.define(:version => 20110118023831) do
 
   create_table "catalogues", :force => true do |t|
     t.string   "name"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20101231201900) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "catalogue_id"
-    t.string   "requirements"
+    t.text     "requirements", :limit => 255
   end
 
   add_index "courses", ["code"], :name => "index_courses_on_code"
