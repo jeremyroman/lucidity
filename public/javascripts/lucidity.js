@@ -66,6 +66,16 @@ Lucidity = {
       term_id = $(this).closest(".term").attr("data-term-id");
       Lucidity.dialog.show('/terms/' + term_id + '/course_memberships/' + cm_id + '/edit');
     });
+    
+    var clearCourseInfoTimeout;
+    $(".course").live("mouseover", function() {
+      clearTimeout(clearCourseInfoTimeout);
+      course_id = $(this).attr("data-course-id");
+      $(".courseinfo div").load('/courses/' + course_id, function() { $(this).slideDown(200); });
+    }).live("mouseout", function() {
+      clearCourseInfoTimeout = setTimeout(function() { $(".courseinfo div").slideUp(200); }, 300);
+    });
+    $(".courseinfo div").slideUp();
   },
   
   processConflicts: function(conflicts) {

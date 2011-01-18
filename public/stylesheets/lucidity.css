@@ -101,7 +101,7 @@ header h1 a {
 
 .bubbles {
   float:right;
-  width:22%; min-width:10em; max-width:25em;
+  width:25%; min-width:10em; max-width:30em;
 }
 
 .bubble {
@@ -126,6 +126,27 @@ header h1 a {
   color:#fff; padding:3px 4px 4px; margin:1px;
   background-color:#567;
 }
+
+.courseinfo.bubble div {
+  font-size: 13px;
+}
+
+.courseinfo.bubble div h3 {
+  background: none;
+  border-radius: 0;
+  color:#000;
+  margin:0; padding:0;
+  font: 19px Helvetica;
+}
+
+.courseinfo.bubble div ul {
+  padding-left:1em;
+}
+
+.courseinfo.bubble div p {
+  line-height: 1.4;
+}
+
 .trash { min-height:2em;}
 
 .search form { padding:4px; }
@@ -240,10 +261,10 @@ input,textarea { font-size:13px }
 .field_with_errors input { border:2px solid #f00; }
 
 @media only screen and (max-width:480px), screen and (max-device-width:480px) {
-  .bubbles { float:none; width:100%; }
+  .bubbles { float:none; width:100%; max-width:25em; }
   .bubble { width:100%; }
   .term { float:none; width:95%; }
-  .courses { float:none; width:100%;}
+  .courses { float:none; width:100%; }
 }
 
 #simplemodal-overlay {background-color:#000;}

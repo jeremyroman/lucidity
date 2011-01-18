@@ -1,12 +1,11 @@
 # Handles CRUD actions related to courses
-# 
-# TODO: Restrict to administrators
 
 class CoursesController < ApplicationController
   load_and_authorize_resource :catalogue, :only => [:index, :new, :create]
   load_and_authorize_resource :course, :through => :catalogue, :only => [:index, :new, :create]
   load_and_authorize_resource :course, :except => [:index, :new, :create]
-  # before_filter proc { |c| @catalogue = Catalogue.find(c.params[:catalogue_id]) }, :only => [:index, :new, :create]
+  
+  caches_action :show, :if => proc { |c| c.request.xhr? }
   
   # List all courses
   def index

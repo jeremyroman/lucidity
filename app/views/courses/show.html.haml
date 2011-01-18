@@ -1,7 +1,7 @@
 .content
   %h3= @course.code
   %p
-    = @course.name
+    %strong= @course.name
     %br
     = "Offered: #{@course.offered}"
   
@@ -15,7 +15,8 @@
     - for requirement in @course.requirements_data
       %li= format_requirement(requirement)
   
-%p.links<
-  = link_to "All Courses", [@course.catalogue, :courses]
-  = link_to "Edit", [:edit, @course] if can? :manage, @course
-  = link_to "Delete", @course, :method => :delete if can? :manage, @course
+- unless request.xhr?
+  %p.links<
+    = link_to "All Courses", [@course.catalogue, :courses]
+    = link_to "Edit", [:edit, @course] if can? :manage, @course
+    = link_to "Delete", @course, :method => :delete if can? :manage, @course
