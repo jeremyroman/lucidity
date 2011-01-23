@@ -1,0 +1,64 @@
+@import "mixins";
+
+.courses { float: left; width: 75%; }
+
+.term {
+  width: 29%;
+  min-width: 10em;
+  max-width: 25em;
+  min-height:4em;
+  
+  float: left;
+  margin: 4px;
+  padding: 2px 2px 4px;
+  
+  background-color: #e6e6e6;
+  @include border-radius(8px);
+  @include box-shadow(2px 2px 2px #777);
+  cursor:default;
+  
+  &:nth-child(3n+1) { clear:both; }
+  &:first-child     { clear:none; }
+  
+  h3 {
+    color: #fff;
+    font: 11px Arial;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    
+    margin: 1px;
+    padding: 4px 6px 3px;
+    @include border-radius(4px);
+  }
+  
+  &.fall h3   { background-color: #c60; }
+  &.winter h3 { background-color: #27a; }
+  &.spring h3 { background-color: #090; }
+}
+
+.course {
+  margin: 0px 2px -1px;
+  padding: 3px 3px 2px;
+  
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #bbb;
+  
+  cursor: move;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  strong {
+    display: block;
+    float: left;
+    width: 7.5em;
+  }
+  
+  &.conflict {
+    border: 1px solid #700;
+    background-color: #b00;
+    color: #edd;
+  }
+}

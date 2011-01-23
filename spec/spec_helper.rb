@@ -26,5 +26,6 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   
-  config.include(Shoulda::ActiveRecord::Macros, :type => :model)
+  config.include Shoulda::ActiveRecord::Macros, :type => :model
+  config.include Devise::TestHelpers, :type => :controller
 end

@@ -1,0 +1,86 @@
+@import "mixins";
+@import "general";
+@import "bubbles";
+@import "courses";
+
+header {
+  display: block;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  
+  margin: 0px -8px 8px;
+  padding:4px 20px;
+  
+  background-color:#789;
+  border-bottom:1px solid #def;
+  color:#fff;
+  
+  .user { float:right; }
+  a { color:#eee; }
+  
+  h1 {
+    display: inline;
+    padding: 0;
+    color: #fff;
+    font: 28px "Trebuchet MS";
+    text-shadow: #fff 0px 0px 8px;
+    text-decoration: none;
+    
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+}
+
+.content {
+  background-color:#fff;
+  border:1px solid #678;
+  border-radius:4px;
+  padding:1em;
+  font:15px Arial;
+  
+  &>h3 { margin:0; font-size:18px; }
+}
+
+p.links {
+  a {
+    padding:0.5em 0.8em;
+    border:1px solid #678;
+    background-color:#fff;
+    color:#367;
+    text-decoration:none;
+    border-right-width:0;
+    font:11px Verdana;
+    
+    &:hover { background-color:#ddd; }
+    
+    &:first-child {
+      border-top-left-radius:6px;
+      border-bottom-left-radius:6px;
+    }
+    
+    &:last-child {
+      border-top-right-radius:6px;
+      border-bottom-right-radius:6px;
+      border-right-width:1px;
+    }
+    
+    .content & { background-color:#f7f7f7; }
+  }
+  
+  table & { margin:0.5em -0.4em 0.5em 0.5em; }
+}
+
+@media only screen and (max-width:480px), screen and (max-device-width:480px) {
+  .bubbles { position:static; float:none; width:100%; max-width:25em; }
+  .bubble { width:100%; }
+  .term { float:none; width:95%; }
+  .courses { float:none; width:100%; }
+}
+
+#simplemodal-overlay {background-color:#000;}
+#simplemodal-container {background-color:#eee; border:8px solid #444; padding:12px; }

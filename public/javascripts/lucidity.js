@@ -76,6 +76,8 @@ Lucidity = {
       clearCourseInfoTimeout = setTimeout(function() { $(".courseinfo div").slideUp(200); }, 300);
     });
     $(".courseinfo div").slideUp();
+    
+    $(".course").textOverflow();
   },
   
   processConflicts: function(conflicts) {

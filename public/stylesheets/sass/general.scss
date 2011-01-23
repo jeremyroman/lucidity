@@ -1,0 +1,65 @@
+@import "mixins";
+
+body {
+  background-color: #b7bfc7;
+  font: 11px Verdana;
+  -webkit-text-size-adjust: none;
+  margin-top: 48px;
+}
+
+a {
+  color: #367;
+}
+
+.field_with_errors {
+  color: #f00;
+  display: inline;
+  input { border: 2px solid #f00; }
+}
+
+.flash {
+  color: #000;
+  margin: 0 0 0.5em 0;
+  padding: 0.5em;
+  
+  &.notice {
+    background-color: #afa;
+    border: 1px solid #0c0;
+  }
+  
+  &.warning {
+    background-color: #fea;
+    border: 1px solid #ca0;
+  }
+  
+  &.error {
+    background-color: #faa;
+    border: 1px solid #c00;
+  }
+}
+
+table {
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-collapse: collapse;
+  font: 13px Arial;
+  
+  thead {
+    background-color: #789;
+    color: #fff;
+  }
+  
+  td,th {
+    font-weight: normal;
+    padding: 3px 8px;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+}
+
+input,textarea { font-size: 13px }
