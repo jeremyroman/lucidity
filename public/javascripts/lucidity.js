@@ -107,7 +107,8 @@ Lucidity = {
       function() {
         $(".search .course").draggable({ helper:'clone', connectToSortable:'.term' })
                             .disableSelection()
-                            .each(function() { $(this).attr("title", this.innerText); });
+                            .each(function() { $(this).attr("title", this.innerText); })
+                            .textOverflow();
       });
     return false;
   },
