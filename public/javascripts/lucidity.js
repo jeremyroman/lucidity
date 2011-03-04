@@ -55,6 +55,7 @@ Lucidity = {
     $(".trash").sortable({
       items:'.course',
       receive: function(event, ui) {
+        console.log(event, ui);
         $(event.toElement).closest(".course").fadeOut('slow', function() { $(this).remove() });
       }
     });
