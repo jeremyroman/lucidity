@@ -23,7 +23,8 @@ class PlansController < ApplicationController
   
   # Validate and save a new plan
   def create
-    @plan.save
+    @plan.user = current_user
+    @plan.save!
     
     respond_with(@plan)
   end
@@ -35,7 +36,7 @@ class PlansController < ApplicationController
   
   # Validate and save changes to a plan
   def update
-    @plan.update_attributes(params[:plan])
+    @plan.update_attributes!(params[:plan])
     
     respond_with(@plan)
   end

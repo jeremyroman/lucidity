@@ -5,6 +5,7 @@ class CourseMembership < ActiveRecord::Base
   belongs_to :term
   
   attr_accessible :course_id, :override
+  validates_presence_of :course_id, :term_id
   
   def conflicts
     override ? [] : RequirementChecker.check(course, term)
