@@ -8,7 +8,7 @@ class CourseMembershipsController < ApplicationController
   self.responder = ActionController::Responder
   
   def create
-    @course_membership.save
+    @course_membership.save!
     
     respond_with(@course_membership) do |format|
       format.json do
@@ -32,7 +32,7 @@ class CourseMembershipsController < ApplicationController
   end
   
   def update
-    @course_membership.update_attributes(params[:course_membership])
+    @course_membership.update_attributes!(params[:course_membership])
     respond_with(@course_membership) do |format|
       format.json do
         render :json => {:course_membership => @course_membership, :conflicts => @course_membership.term.plan.conflicts }.to_json
